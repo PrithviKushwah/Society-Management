@@ -39,15 +39,16 @@ Route::get('sign-in', Login::class)->middleware('guest')->name('login');
 Route::get('user-profile', UserProfile::class)->middleware('auth')->name('user-profile');
 Route::get('user-management', UserManagement::class)->middleware('auth')->name('user-management');
 
-Route::get('users', UserDetail::class)->middleware('auth')->name('User Detail');
 
 
 Route::get('export', [UserManagement::class ,'export'])->middleware('auth')->name('export');
 Route::get('user_export', [UserDetail::class ,'export'])->middleware('auth')->name('user_export');
 
 
-Route::group(['middleware' => 'auth'], function () {
-Route::get('dashboard', Dashboard::class)->name('dashboard');
-Route::get('profile', Profile::class)->name('profile');
+Route::group(['middleware' => ['web', 'auth:admins']], function () {
+    Route::get('dashboard', Dashboard::class)->name('dashboard');
+    Route::get('profile', Profile::class)->name('profile');
+    Route::get('users', UserDetail::class)->middleware('auth')->name('User Detail');
+
 
 });

@@ -4,7 +4,7 @@
                     <div class="col-lg-4 col-md-8 col-12 mx-auto">
                         <div class="card z-index-0 fadeIn3 fadeInBottom">
                             <div class="card-body">
-                                <form wire:submit.prevent='store'>
+                                <form wire:submit.prevent='login'>
                                     @if (Session::has('status'))
                                     <div class="alert alert-success alert-dismissible text-white" role="alert">
                                         <span class="text-sm">{{ Session::get('status') }}</span>

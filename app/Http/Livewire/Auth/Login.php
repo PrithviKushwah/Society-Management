@@ -4,17 +4,16 @@ namespace App\Http\Livewire\Auth;
 
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Login extends Component
 {
+    public $email = '';
+    public $password = '';
 
-    public $email='';
-    public $password='';
-
-    protected $rules= [
+    protected $rules = [
         'email' => 'required|email',
-        'password' => 'required'
-
+        'password' => 'required',
     ];
 
     public function render()
@@ -22,24 +21,23 @@ class Login extends Component
         return view('livewire.auth.login');
     }
 
-    public function mount() {
-      
-        $this->fill(['email' => 'admin@material.com', 'password' => 'secret']);    
+    public function mount()
+    {
+        $this->fill(['email' => 'admin@material.com', 'password' => 'secret']);
     }
-    
-    public function store()
+
+    public function login()
     {
         $attributes = $this->validate();
 
-        if (! auth()->attempt($attributes)) {
-            throw ValidationException::withMessages([
-                'email' => 'Your provided credentials could not be verified.'
-            ]);
+        if (Auth::guard('admins')->attempt($attributes)) {
+            session()->regenerate();
+
+            return redirect('/dashboard');
         }
 
-        session()->regenerate();
-
-        return redirect('/dashboard');
-
+        throw ValidationException::withMessages([
+            'email' => 'Your provided credentials could not be verified.',
+        ]);
     }
 }
