@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 
 
 
@@ -25,23 +26,27 @@ class UserDetail extends Component
 
     use WithFileUploads;
 
-    public $uuid,
+    public 
+    $uuid,
     $name,
     $email,
     $password,
+    $registry,
+    $profile_picture,
     $phone,
-    $document,
+    $adhar,
     $block_no,
     $floor_no,
     $flat_no,
     $area,
-    $maintainance_price;
+    $maintainance_price,
+    $errorMessage;
     
     public $isOpen = 0 , $isView = 0;
 
     public function render()
     {
-        $users = User::where('name', 'like', '%' . $this->search_name . '%')
+        $users = User::where('user_name', 'like', '%' . $this->search_name . '%')
             ->paginate($this->perPage);
         return view(
             'livewire.user.user-detail',
@@ -88,15 +93,19 @@ class UserDetail extends Component
     private function resetInputFields()
     {
         $this->resetErrorBag();
+        $this->uuid = '';
         $this->name = '';
         $this->password = '';
         $this->phone = '';
-        $this->document = '';
+        $this->adhar = '';
+        $this->registry = '';
+        $this->profile_picture = '';
         $this->block_no = '';
         $this->floor_no = '';
         $this->flat_no = '';
         $this->area = '';
         $this->email = '';
+        $this->errorMessage = '';
     }
 
     /**
@@ -106,13 +115,16 @@ class UserDetail extends Component
      */
     public function store()
     {
+        try {
         $uuid = (string) Str::uuid();
 
         $this->validate([            
             'name' => 'required',
             'password' => 'required',
             'phone' => 'required',
-            'document' => 'required',
+            'adhar' => 'required',
+            'registry' => 'required',
+            'profile_picture' => 'required',
             'block_no' => 'required',
             'floor_no' => 'required',
             'flat_no' => 'required',
@@ -121,10 +133,12 @@ class UserDetail extends Component
 
 
         $data = [
-            'name' => $this->name,
+            'user_name' => $this->name,
             'password' => $this->password,
             'phone' => $this->phone,
-            'document' => $this->document,
+            'adhar' => $this->adhar,
+            'registry' => $this->registry,
+            'profile_picture' => $this->profile_picture,
             'block_no' => $this->block_no,
             'floor_no' => $this->floor_no,
             'flat_no' => $this->flat_no,
@@ -132,16 +146,26 @@ class UserDetail extends Component
         ];
 
         if ($this->uuid == null) {
+            $this->validate([
+                'email' => 'required|email|unique:users,email'
+            ]);
             $data['uuid'] = $uuid;
             $data['email'] = $this->email;   
-        } else {
-            $this->validate([
-                'email' => 'unique:users,email,required'
-            ]);
         }
-        if (is_object($this->document)) {
-          $document =   $this->document->store('adhar');
-            $data['document'] = $document;
+        if (is_object($this->adhar)) {
+            $adhar = $this->adhar->store('public/adhar');
+            $filename = basename($adhar);
+            $data['adhar'] = $filename;
+        }
+        if (is_object($this->registry)) {
+            $registry = $this->registry->store('public/registry');
+            $filename = basename($registry);
+            $data['registry'] = $filename;
+        }
+        if (is_object($this->profile_picture)) {
+            $profile_picture = $this->profile_picture->store('public/profile_picture');
+            $filename = basename($profile_picture);
+            $data['profile_picture'] = $filename;
         }
  
         User::updateOrCreate(['uuid' => $this->uuid], $data);
@@ -152,6 +176,20 @@ class UserDetail extends Component
 
         $this->closeModal();
         $this->resetInputFields();
+
+        } catch (QueryException $e) {
+
+            // Check if the exception is due to a unique constraint violation
+            if ($e->getCode() == '23000' && strpos($e->getMessage(), 'users_phone_unique') !== false) {
+                $errorMessage = 'Error: The phone number  already exists.';
+                $this->errorMessage =  $errorMessage;
+            } else {
+                // Handle other types of exceptions if needed
+                // Log the error, notify the user, or perform other actions
+                // ...
+                echo "Error: An unexpected error occurred.";
+            }
+}
     }
 
     /**
@@ -165,10 +203,13 @@ class UserDetail extends Component
         $user = User::where('uuid', $uuid)->first();
         if ($user) {
             $this->uuid = $user->uuid;            
-            $this->name = $user->name;
+            $this->name = $user->user_name;
+            $this->email = $user->email;
             $this->password = $user->password;
             $this->phone = $user->phone;
-            $this->document = $user->document;
+            $this->adhar = $user->adhar;
+            $this->registry = $user->registry;
+            $this->profile_picture = $user->profile_picture;
             $this->block_no = $user->block_no;
             $this->floor_no = $user->floor_no;
             $this->flat_no = $user->flat_no;

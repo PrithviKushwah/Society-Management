@@ -19,11 +19,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'uuid',
-        'name',
+        'user_name',
         'email',
         'password',
         'phone',
-        'document',
+        'adhar',
+        'registry',
+        'profile_picture',
         'block_no',
         'floor_no',
         'flat_no',

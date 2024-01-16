@@ -877,6 +877,15 @@ div#dashboard-cards .nav-button:nth-child(3) {
     width: 100%;
     margin-left: 0;
 }
+
+.open-user{
+	border: none;
+	background: none;
+	
+}
+.open-user:hover{
+	color:#e63673 ;
+}
 /* Dashboard button  */
 .btn-d-2 {
     border: 2px solid #3e98ee !important;
@@ -944,6 +953,13 @@ h3.btn-count-3{
 .filter-by span {
 	font-size: 12px;
 }
+.row-filter-d .col-md-3.col-12:first-child {
+    margin-bottom:28px;
+}
+
+.row-filter-d {
+    margin-bottom: 32px !important;
+}
 @media (max-width:1364px){
 	.filter-bg .input-group.input-group-outline .form-label {
 		line-height: 1.6rem !important;
@@ -960,6 +976,14 @@ h3.btn-count-3{
 
     justify-content: center;
     margin-bottom: 10px;
+}
+.open-user{
+	border: none;
+	background: none;
+	
+}
+.open-user:hover{
+	color:#e63673 ;
 }
 }
 @media (max-width:767px){

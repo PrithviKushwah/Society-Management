@@ -49,29 +49,22 @@
 
                                             <div class="filter-by input-group input-group-outline mb-5">
                                                 <label for="filter" class="form-label align-items-center"><span><i class="fa fa-filter"></i> Filter by</span>
-                                                    <input wire:model="search" class="form-control" list="datalistOptions" placeholder="Search by year...">
+                                                    <input wire:model="search_name" type="text" class="form-control" placeholder="Search by name..." />
                                                 </label>
-                                                <datalist id="datalistOptions">
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="2021">2021</option>
-                                                    <option value="2022">2022</option>
-                                                    <option value="2023">2023</option>
-                                                    <option value="2024">2024</option>
-                                                    <option value="2025">2025</option>
-                                                </datalist>
+                                               
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="col-md-3 col-12">
-                                        <div class="dropdown">
+                                        {{-- <div class="dropdown">
                                             <div class="filter-by input-group input-group-outline">
                                                 <label>
                                                     <input wire:model="search_name" type="text" class="form-control" placeholder="Search by name..." />
                                                 </label>
                                             </div>
 
-                                        </div>
+                                        </div> --}}
 
                                     </div>
                                     <div class="col-md-5 ms-auto-none col-12 justify-content-between d-flex">
@@ -111,7 +104,11 @@
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
                                                     PHONE</th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    DOCUMENT</th>
+                                                    ADHAR</th>
+                                                    <th class="text-uppercase text-xxs font-weight-bolder">
+                                                    REGISTRY</th>
+                                                    <th class="text-uppercase text-xxs font-weight-bolder">
+                                                    PROFILE PICTURE </th>                                                                                                        
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
                                                     BLOCK NUMBER
                                                     </th>
@@ -140,7 +137,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="text-center justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                                                            <h6 class="mb-0 text-sm">{{ $user->user_name }}</h6>
 
                                                         </div>
                                                     </td>
@@ -158,8 +155,17 @@
                                                         </p>
                                                     </td>
                                                     <td class="align-middle text-center">                                                        
-                                                          <img src="{{ asset('storage/' . $user->document) }}" alt="alt">                                                    
+                                                    <a href="{{ asset('storage/adhar/' . $user->adhar) }}" download>Download Adhar
+                                                </a>
                                                         </td>
+                                                        <td class="align-middle text-center">   
+                                                        <a href="{{ asset('storage/registry/' . $user->registry) }}" download>Download Registry
+                                                </a>                                                     
+                                                           </td>
+                                                        <td class="align-middle text-center">                                                        
+                                                          <img width='80' src="{{ asset('storage/profile_picture/' . $user->profile_picture) }}" alt="alt">                                                    
+                                                        </td>
+
                                                    
                                                     <td class="align-middle text-center">
                                                         <span class="text-secondary text-xs font-weight-bold">{{ $user->block_no }}</span>
@@ -186,6 +192,7 @@
                                                             <i class="material-icons">close</i>
                                                             <div class="ripple-container"></div>
                                                         </button>
+                                                        <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this partner?')">Delete</button> -->
                                                     </td>
                                                 </tr>
                                                 @endforeach

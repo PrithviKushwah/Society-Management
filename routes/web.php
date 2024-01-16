@@ -9,7 +9,9 @@ use App\Http\Livewire\ExampleLaravel\UserManagement;
 use App\Http\Livewire\ExampleLaravel\UserProfile;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\User\UserDetail;
+use App\Http\Livewire\Admin\AdminManagement;
 use App\Http\Controllers\Controller;
+use App\Http\Livewire\Maintenance\Maintenance;
 
 
 
@@ -39,16 +41,27 @@ Route::get('sign-in', Login::class)->middleware('guest')->name('login');
 Route::get('user-profile', UserProfile::class)->middleware('auth')->name('user-profile');
 Route::get('user-management', UserManagement::class)->middleware('auth')->name('user-management');
 
+// Route::get('users', UserDetail::class)->middleware('auth')->name('User Detail');
 
 
 Route::get('export', [UserManagement::class ,'export'])->middleware('auth')->name('export');
-Route::get('user_export', [UserDetail::class ,'export'])->middleware('auth')->name('user_export');
+Route::get('user_export', [UserDetail::class, 'export'])->middleware('auth')->name('user_export');
+Route::get('admin_export', [AdminManagement::class, 'export'])->middleware('auth')->name('admin_export');
 
+
+// Route::group(['middleware' => 'auth'], function () {
+// Route::get('dashboard', Dashboard::class)->name('dashboard');
+// Route::get('profile', Profile::class)->name('profile');
+
+
+// });
 
 Route::group(['middleware' => ['web', 'auth:admins']], function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');
     Route::get('profile', Profile::class)->name('profile');
     Route::get('users', UserDetail::class)->middleware('auth')->name('User Detail');
-
+    Route::get('admin-management', AdminManagement::class)->middleware('auth')->name('admin_management');
+    Route::get('maintenance', Maintenance::class)->middleware('auth')->name('bulk-maintenance');
+    Route::get('maintenance_export', [Maintenance::class, 'export'])->middleware('auth')->name('maintenance_export');
 
 });

@@ -19,7 +19,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="px-0 nav-link text-white {{ Route::currentRouteName() == 'user-management' ? ' active bg-gradient-primary' : '' }} " href="{{ route('user-management') }}">
+                <a class="px-0 nav-link text-white {{ Route::currentRouteName() == 'admin_management' ? ' active bg-gradient-primary' : '' }} " href="{{ route('admin_management') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                     </div>
@@ -29,12 +29,19 @@
             </li>
             
            
-                    <li class="nav-item">
-                        <a href="{{ route('User Detail') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'college' ? ' active bg-gradient-primary' : '' }}">
-                        <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
-                        <span class="nav-link-text ms-1">User Management</span> </a>
-                        
-                    </li>
+            <li class="nav-item">
+                <a href="{{ route('User Detail') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'User Detail' ? ' active bg-gradient-primary' : '' }}">
+                <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
+                <span class="nav-link-text ms-1">User Management</span> </a>
+                
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('bulk-maintenance') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'bulk-maintenance' ? ' active bg-gradient-primary' : '' }}">
+                <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
+                <span class="nav-link-text ms-1">Maintenance</span> </a>
+                
+            </li>
 
                     <!-- <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
@@ -45,7 +52,7 @@
                                 <a href="{{ route('User Detail') }}" class="nav-link px-0 {{ Route::currentRouteName() == 'User Detail' ? ' active bg-gradient-primary' : '' }}"> <i class="fs-4 bi-speedometer2"></i>User Details</a>
                             </li> -->
                             <!-- <li>
-                                <a href="#" class="nav-link px-0"> <i class="fs-4 bi-speedometer2"></i> Edit College</a>
+                                <a href="#" class="nav-link px-0"> <i class="fs-4 bi-speedometer2"></i> Edit User Detail</a>
                             </li> -->
                         </ul>
                     </li>

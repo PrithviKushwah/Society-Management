@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class Login extends Component
 {
-    public $email = '';
-    public $password = '';
 
-    protected $rules = [
+    public $email='';
+    public $password='';
+
+    protected $rules= [
         'email' => 'required|email',
-        'password' => 'required',
+        'password' => 'required'
+
     ];
 
     public function render()
@@ -21,12 +23,12 @@ class Login extends Component
         return view('livewire.auth.login');
     }
 
-    public function mount()
-    {
-        $this->fill(['email' => 'admin@material.com', 'password' => 'secret']);
+    public function mount() {
+      
+        $this->fill(['email' => 'admin@material.com', 'password' => 'secret']);    
     }
-
-    public function login()
+    
+    public function store()
     {
         $attributes = $this->validate();
 

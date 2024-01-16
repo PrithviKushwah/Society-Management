@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         Admin::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@material.com',
-            'password' => Hash::make('secret')
+            'password' => Hash::make('secret'),
+            'role' => 'admin'
         ]);
     }
 }

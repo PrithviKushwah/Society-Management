@@ -2,12 +2,18 @@
 <nav class="navbar navbar-expand-lg bg-dark rounded px-0">
 
   <div class="container-fluid d-flex w-100">
+<?php 
+  use Illuminate\Support\Facades\Auth;
+  $auth_id = Auth::id(); 
+  $admin = App\Models\Admin::where('id' , $auth_id)->first(); 
+  
+  ?>
 
     <ul class="navbar-nav w-40">
       <li class="nav-item nav-profile">
             <a class="nav-link text-white px-0" href="#" data-bs-toggle="dropdown" >
               <img src="assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="profile">
-              <span class="nav-profile-name">Admin Name</span>
+              <span class="nav-profile-name">{{ $admin->name }}</span>
             </a>
             
           </li>
@@ -21,57 +27,9 @@
     </button>
     
     <div class="collapse navbar-collapse w-100 user-info" id="navbarSupportedContent">
-    <div class="header-year-select">
-      <form>
-        Year
-        <select>
-          <option>2021</option>
-          <option>2022</option>
-          <option>2023</option>
-          <option>2024</option>
-          <option>2025</option>
-        </select>
-</form>
-    </div>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-end" style="column-gap: 10px;">
-      
-      <li class="nav-item bg-light-custom rounded-pill shadow-lg px-2 py-2 p-0 counter-bg">
-          <a class="nav-link d-flex justify-content-center align-items-center text-white " aria-current="page" href="javascript:;">
-              <span style="font-size: 11px;" class="text-primary">Time Remains </span>
-              &nbsp;&nbsp;<h6 class="text-white date mb-0" id="demo1">
-                <time class="countdown" date-time="2023-12-25 00:00:00" ></time>
-            </h6>&nbsp;&nbsp;
 
-              
-              <i class="fa fa-clock-o text-primary" aria-hidden="true"></i>
-            </a>
-        </li>
-        <li class="nav-item bg-light-custom rounded-pill shadow-lg px-2 py-2 p-0 counter-bg">
-          <a class="nav-link d-flex justify-content-center align-items-center text-white " aria-current="page" href="javascript:;">
-              <span style="font-size: 11px;" class="text-primary">Your Hours </span>
-              &nbsp;&nbsp;<h6 class="text-white date mb-0" id="demo1"> 
-                <time class="countdown" date-time="2024-01-01 00:00:00"></time>
-            </h6>&nbsp;&nbsp;
-              <i class="fa fa-clock-o text-primary" aria-hidden="true"></i>
-            </a>
-        </li >
-        <li class="px-2 mt-2 w-5 search-bg">
-    	<a href="#"><i class="fa fa-search text-white" aria-hidden="true"></i></a>
-		 <div class="search-box rounded-pill bg-dark">
-    		<input type="text" placeholder="Search Here..."/>
-    		<button><i class="fa fa-search text-white" aria-hidden="true"></i></button>
-  		</div>
-    </li>
-        <li class="nav-item dropdown notification-bg">
-          <a class="nav-link text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa fa-bell mx-0"></i>
-          </a>
-          <ul class="dropdown-menu notification-ul">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            
-          </ul>
-        </li>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-end" style="column-gap: 10px;">
+
       <li class="nav-item dropdown  user-bg">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-user mx-0"></i>
