@@ -11,7 +11,7 @@ class EmailController extends Controller
     public function index()
     {
         $testMailData = [
-            'title' => ' dfdfgdfg Test Email From AllPHPTricks.com',
+            'title' => ' push test Test Email From AllPHPTricks.com',
             'body' => 'This is the body of test email.'
         ];
 
