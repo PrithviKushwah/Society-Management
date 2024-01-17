@@ -5,11 +5,15 @@ namespace App\Http\Livewire\Invoice;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Models\MaintenanceUser;
+use App\Models\InvoiceModel;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class Invoice extends Component
 
 {
     public $perPage='10', $search_name = '', $isOpen = 0 , $isUserOpen = 0,
+    $uuid,
     $payable_amount ,
     $paid_amount,
     $comment,
@@ -20,7 +24,8 @@ class Invoice extends Component
     $year,
     $month,
     $created_for,
-    $error_msg;
+    $error_msg,
+    $payment_method;
 
     public function render()
 
@@ -49,6 +54,9 @@ class Invoice extends Component
        
         $this->isOpen = true;
     }
+    public function closeModal(){
+        $this->isOpen = false;
+    }
 
     private function resetInputFields()
     {
@@ -61,6 +69,45 @@ class Invoice extends Component
         $this->month = '' ;
         $this->year = '';
         $this->payable_amount = '' ;
+        $this->payment_method = '';
+        $this->uuid = '';
+        $this->paid_amount = '';
         
+    }
+
+    public function store(){
+        $this->validate([
+            'created_for' => 'required',
+            'year' => 'required',
+            'month' => 'required',
+            'payable_amount' => 'required',
+            'paid_amount' => 'required',
+            'payment_method' => 'required',
+        ]);
+        $created_by = Auth::id();       
+
+        
+        $data = [
+            'created_for' => $this->created_for,
+            'year' => $this->year,
+            'month' => $this->month,
+            'payable_amount' => $this->payable_amount,
+            'paid_amount' => $this->paid_amount,
+            'payment_method' => $this->payment_method,   
+        ];
+        if ($this->uuid == null)   {
+            $uuid = (string) Str::uuid();
+            $data['uuid'] = $uuid;
+            $data['created_by'] = $created_by;
+        }
+
+        $test = InvoiceModel::updateOrCreate(['uuid' => $this->uuid], $data);
+
+        session()->flash(
+            'message',
+            $this->uuid ? 'Invoice Updated Successfully.' : 'Invoice Created Successfully.'
+        );
+        $this->closeModal();
+        $this->resetInputFields();
     }
 }

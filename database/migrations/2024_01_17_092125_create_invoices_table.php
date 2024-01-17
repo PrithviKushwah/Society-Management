@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             $table->string('created_for')->nullable();
             $table->string('created_by')->nullable();
             $table->string('maintainance_id')->nullable();

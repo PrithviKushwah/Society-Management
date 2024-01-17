@@ -8,8 +8,8 @@
           @endif
       <div class="col-sm-3 ">
               <div class="form-group">
-                <label>User:</label>
-                <select wire:model="created_for" {{ isset($create_for) && $create_for != null ? 'disabled' : '' }} class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <label>USER:</label>
+                <select wire:model="created_for"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>
                   <?php 
                       $users = App\Models\User::select('id','user_name')->get();
@@ -18,12 +18,11 @@
                     <option value="{{ $user->id }}">{{ $user->user_name }}</option>
                   @endforeach
                 </select>
-                @error('create_for') <span class="text-danger">{{ $message }}</span>@enderror
+                @error('created_for') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
-        
-
-
+            
+            
             <div class="col-sm-3 ">
               <div class="form-group">
                 <label>MONTH</label>
@@ -40,46 +39,64 @@
             <div class="col-sm-3 ">
               <div class="form-group">
                 <label>YEAR</label>
-                <select wire:model="year" {{isset($year) && $year != null ? 'disabled' : '' }}  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <select wire:model="year"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>
-                
+                  
                   @foreach ($years as $year )                                 
-                    <option value="{{ $year }}">{{ $year }}</option>
+                  <option value="{{ $year }}">{{ $year }}</option>
                   @endforeach
                 </select>
                 @error('year') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
-
+            
+            <div class="col-sm-3 ">
+              <div class="form-group">
+                <label>PAYMENT METHOD:</label>
+                <select wire:model="payment_method"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                  <option value="" @disabled(true)>--- Select An Option---</option>
+                  <option value="Online" >Online</option>
+                  <option value="Cash" >Cash</option>
+                </select>
+                @error('payment_method') <span class="text-danger">{{ $message }}</span>@enderror
+              </div>
+            </div>
+        
             <?php
-            
-            
-          
-             $maintenance = App\Models\MaintenanceUser::where('month','=',$this->month)
+            $maintenance = App\Models\MaintenanceUser::where('month','=',$this->month)
              ->where('year','=',$this->year)
              ->where('create_for','=',$this->created_for)
              ->select('total_cost')
              ->first();
              if(!empty( $maintenance)){
-           $this->payable_amount =  $maintenance->total_cost;
+           $this->payable_amount = '$'.' '.$maintenance->total_cost;
+             }else{
+              $this->payable_amount = '';
              }
             ?>
-            <div class="col-sm-3 ">
+            <div class="col-sm-3 mt-3 ">
               <div class="form-group">
                 <label>PAYABLE AMOUNT:</label>
                 <input disabled wire:model="payable_amount" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
-                @error('comment') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
+                 @if(!$this->month || !$this->year || !$this->created_for)
+                 <span class="text-dark" >Please select User , Year and Month</span>
+              
+                 @elseif(empty($this->payable_amount ))
+                 <span class="text-danger" >Maintanance amount not exist for this user</span>
+                 @endif
+
+                </div>
+
             </div>
-            <div class="col-sm-3 ">
+            <div class="col-sm-3 mt-3">
               <div class="form-group">
                 <label>PAID AMOUNT:</label>
-                <input wire:model="" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
-                @error('comment') <span class="text-danger">{{ $message }}</span>@enderror
+                <input wire:model="paid_amount" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Amount to be paid">
+                @error('paid_amount') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
 
-            <div class="col-sm-3 ">
+            <div class="col-sm-3 mt-3 ">
               <div class="form-group">
                 <label>COMMENT:</label>
                 <input wire:model="comment" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
@@ -87,21 +104,6 @@
               </div>
             </div>
 
-            <div class=" mt-3">
-              <input   type="radio" wire:model="type" value="PRICE BY AREA" >
-            <label for="css">Price By Area</label><br>
-            <input  type="radio" wire:model="type" value="FIX PRICE">
-            <label for="javascript">Fixed Price</label><br>
-            @error('type') <span class="text-danger">{{ $message }}</span>@enderror
-        </div>
-
-            <div class="col-sm-3 mt-3">
-              <div class="form-group">
-                <label>PRICE :</label>
-                <input wire:model="price" type="number" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Please Enter Price">
-                @error('price') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
-            </div> 
 
           </div>
          
