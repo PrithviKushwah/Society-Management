@@ -16,6 +16,9 @@ use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
+use App\Mail\MaintainanceMail;
+use PDF;
 
 
 class Maintenance extends Component
@@ -171,14 +174,14 @@ class Maintenance extends Component
                 'type' => 'required',
                 'create_for' => 'required',
             ]);  
-            $users = User::where('id' , $this->create_for)->select('id', 'area')->get();
+            $users = User::where('id' , $this->create_for)->select('id', 'area','email')->get();
             $maintenance = MaintenanceUser::where('month', '=', $this->month)
             ->where('year', '=', $this->year)
             ->where('create_for' , '=' , $this->create_for)
             ->get();
                          
       }else{
-        $users = User::select('id','area')->get();
+        $users = User::select('id','area','email')->get();
 
             $this->validate([
                 'month' => 'required',
@@ -218,7 +221,21 @@ class Maintenance extends Component
                 'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
-            MaintenanceUser::Create($data);
+            // MaintenanceUser::Create($data);
+
+
+        $testMailData["email"] = 'kushwahprithvi78@gmail.com';
+        $testMailData["title"] = "From Cloud1.com";
+        $testMailData["body"] = "This is Demo";
+  
+        $pdf = PDF::loadView('email.testMail', $testMailData);
+  
+        Mail::send('email.testMail', $testMailData, function($message)use($testMailData, $pdf ,$user) {
+            $message->to($user->email)
+                    ->subject($testMailData["title"])
+                    ->attachData($pdf->output(), "text.pdf");
+        });
+    
          }
         
                session()->flash(
