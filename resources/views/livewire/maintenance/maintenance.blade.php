@@ -76,7 +76,7 @@
                                     <option value="{{ $year }}">{{ $year }}</option>
                                 @endforeach
                                 </select>
-                                @error('year') <span class="text-danger">{{ $message }}</span>@enderror
+                               
              
                           
 
@@ -90,7 +90,7 @@
                                         <option value="{{ $month }}">{{ $month }}</option>
                                     @endforeach
                                     </select>
-                                    @error('month') <span class="text-danger">{{ $message }}</span>@enderror
+                                  
                                 
                                 </div>
                                     <div class="col-md-3 ms-auto-none col-12 justify-content-between d-flex">
