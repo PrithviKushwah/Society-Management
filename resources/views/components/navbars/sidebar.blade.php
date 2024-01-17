@@ -43,7 +43,7 @@
                 
             </li>
             <li class="nav-item">
-                <a href="{{ route('invoices') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'invoice' ? ' active bg-gradient-primary' : '' }}">
+                <a href="{{ route('invoices') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'invoices' ? ' active bg-gradient-primary' : '' }}">
                 <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
                 <span class="nav-link-text ms-1">Generate Invoice</span> </a>
                 
