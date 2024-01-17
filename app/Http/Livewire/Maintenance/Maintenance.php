@@ -223,7 +223,7 @@ class Maintenance extends Component
                 'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
-            // MaintenanceUser::Create($data);
+            MaintenanceUser::Create($data);
 
 
         $testMailData["email"] = 'kushwahprithvi78@gmail.com';

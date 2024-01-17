@@ -14,12 +14,13 @@ class Invoice extends Component
     $paid_amount,
     $comment,
     $admin,
-    $username,
+    $created_by,
     $remaining_amount,
     $payment_date,
     $year,
     $month,
-    $created_for;
+    $created_for,
+    $error_msg;
 
     public function render()
 
@@ -57,6 +58,9 @@ class Invoice extends Component
         $this->created_for = '' ;
         $this->error_msg = '';
         $this->comment = '';
+        $this->month = '' ;
+        $this->year = '';
+        $this->payable_amount = '' ;
         
     }
 }
