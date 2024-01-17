@@ -231,7 +231,7 @@ class Maintenance extends Component
         $pdf = PDF::loadView('email.testMail', $testMailData);
   
         Mail::send('email.testMail', $testMailData, function($message)use($testMailData, $pdf ,$user) {
-            $message->to($user->email)
+            $message->to($testMailData["email"])
                     ->subject($testMailData["title"])
                     ->attachData($pdf->output(), "text.pdf");
         });
