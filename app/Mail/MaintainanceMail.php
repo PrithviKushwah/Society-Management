@@ -61,6 +61,6 @@ class MaintainanceMail extends Mailable
     {
         
         return $this->subject('Email From AllPHPTricks.com')
-                    ->view('email.testMail');
+                    ->view('email.testMail1');
     }
 }

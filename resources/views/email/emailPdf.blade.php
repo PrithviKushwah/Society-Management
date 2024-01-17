@@ -47,8 +47,33 @@
 
     <div class="invoice">
         <div class="invoice-header">
+            <h2>{{$title}} {{$email}}</h2>
             <p>Invoice Date: January 17, 2024</p>
-        </div> 
+        </div>
+
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monthly Maintenance Fee</td>
+                    <td>1</td>
+                    <td>$100.00</td>
+                    <td>$100.00</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <div class="invoice-total">
+            <p><strong>Total Amount:</strong> $100.00</p>
+        </div>
     </div>
 
 </body>

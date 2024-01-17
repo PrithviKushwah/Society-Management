@@ -21,6 +21,7 @@ use App\Mail\MaintainanceMail;
 use PDF;
 
 
+
 class Maintenance extends Component
 {
    
@@ -35,6 +36,7 @@ class Maintenance extends Component
 
     public
 
+    $tot_cost,
     $user_detail,
     $uuid,
     $month,
@@ -228,7 +230,7 @@ class Maintenance extends Component
         $testMailData["title"] = "From Cloud1.com";
         $testMailData["body"] = "This is Demo";
   
-        $pdf = PDF::loadView('email.testMail', $testMailData);
+        $pdf = PDF::loadView('email.emailPdf', $testMailData);
   
         Mail::send('email.testMail', $testMailData, function($message)use($testMailData, $pdf ,$user) {
             $message->to($user->email)
