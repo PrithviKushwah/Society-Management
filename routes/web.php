@@ -13,6 +13,7 @@ use App\Http\Livewire\Admin\AdminManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Livewire\Maintenance\Maintenance;
 use App\Http\Controllers\EmailController;
+use App\Http\Livewire\Invoice\Invoice;
 
 
 
@@ -66,6 +67,6 @@ Route::group(['middleware' => ['web', 'auth:admins']], function () {
     Route::get('admin-management', AdminManagement::class)->middleware('auth')->name('admin_management');
     Route::get('maintenance', Maintenance::class)->middleware('auth')->name('bulk-maintenance');
     Route::get('maintenance_export', [Maintenance::class, 'export'])->middleware('auth')->name('maintenance_export');
-
+    Route::get('invoices', Invoice::class)->middleware('auth')->name('invoices');
 });
 Route::get('/send-email', [EmailController::class, 'index']);
