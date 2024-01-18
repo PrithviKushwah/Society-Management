@@ -48,6 +48,12 @@
                 <span class="nav-link-text ms-1">Generate Invoice</span> </a>
                 
             </li>
+            <li class="nav-item">
+                <a href="{{ route('properties') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'properties' ? ' active bg-gradient-primary' : '' }}">
+                <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
+                <span class="nav-link-text ms-1">Properties</span> </a>
+                
+            </li>
 
                     <!-- <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">

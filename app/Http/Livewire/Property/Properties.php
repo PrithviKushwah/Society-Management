@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Maintenance;
+namespace App\Http\Livewire\Property;
 
 use Livewire\Component;
-use App\Models\MaintenanceUser;
+use App\Models\PropertyModel;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -16,11 +16,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MaintainanceMail;
 use App\Jobs\SendEmailJob;
 
-
-
-class Maintenance extends Component
-{
-    
+class Properties extends Component
+{ 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $perPage = 10;
@@ -68,7 +65,7 @@ class Maintenance extends Component
 
             
         return view(
-            'livewire.maintenance.maintenance',
+            'livewire.property.properties',
             [
                 'maintenance_user' => $maintenance_user,
             ]
