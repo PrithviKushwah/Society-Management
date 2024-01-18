@@ -104,23 +104,11 @@
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
                                                     PHONE</th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    ADHAR</th>
+                                                    ADHAR</th>                                                    
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    REGISTRY</th>
+                                                    PROFILE PICTURE </th>      
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    PROFILE PICTURE </th>                                                                                                        
-                                                    <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    BLOCK NUMBER
-                                                    </th>
-                                                    <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    FLOOR NUMBER
-                                                    </th>
-                                                    <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    FLAT NUMBER
-                                                    </th>
-                                                    <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    AREA
-                                                    </th>                                                    
+                                                    status </th>                                                                                                                                                                                                           
                                                     <th class="text-uppercase text-xxs font-weight-bolder">ACTION</th>
                                                 </tr>
                                             </thead>
@@ -158,27 +146,16 @@
                                                     <a href="{{ asset('storage/adhar/' . $user->adhar) }}" download>Download Adhar
                                                 </a>
                                                         </td>
-                                                        <td class="align-middle text-center">   
-                                                        <a href="{{ asset('storage/registry/' . $user->registry) }}" download>Download Registry
-                                                </a>                                                     
-                                                           </td>
+                                                       
                                                         <td class="align-middle text-center">                                                        
                                                           <img width='80' src="{{ asset('storage/profile_picture/' . $user->profile_picture) }}" alt="alt">                                                    
-                                                        </td>
-
-                                                   
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $user->block_no }}</span>
+                                                        </td>    
+                                                        
+                                                    <td class="align-middle text-center text-sm">                                                        
+                                                        {{ isset($user->status) && $user->status == 1 ? 'Active' : 'inActive' }}
                                                     </td>
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $user->floor_no }}</span>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $user->flat_no }}</span>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $user->area }}</span>
-                                                    </td>                                                   
+ 
+                                                                                                    
                                                     <td class="align-middle text-center">
                                                         <button rel="tooltip" wire:click="edit('{{ $user->uuid }}','edit')" class="btn mb-0 btn-success btn-link bg-dark rounded-pill" href="" data-original-title="" title="">
                                                             <i class="material-icons">edit</i>

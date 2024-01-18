@@ -53,64 +53,18 @@
                     @endif
               </div>
             </div>
-
-            <div class="col-sm-3 {{ isset($uuid) && $uuid != null ? '' : 'mt-3' }}">
+@if($this->uuid)
+            <div class="col-sm-3 ">
               <div class="form-group">
-                <label>Block Number</label>
-             
-                <select class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="block_no">
-                  <option value="" @disabled(true)>--- Select An Option---</option>
-                  @foreach ($block_numbers as $block_number )                                 
-                    <option value="{{ $block_number }}">{{ $block_number }}</option>
-                   @endforeach
+                <label>status</label>
+                <select wire:model="status"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                  <option value="" @disabled(true)>--- Select An Status---</option>
+                    <option value="1">Active</option>
+                    <option value="2">InActive</option>
                 </select>
-                @error('block_no') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
-
-            <div class="col-sm-3 {{ isset($uuid) && $uuid != null ? '' : 'mt-3' }}">
-              <div class="form-group">
-                <label>Floor Number</label>
-                <select wire:model="floor_no"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                  <option value="" @disabled(true)>--- Select An Option---</option>
-                  @foreach ($floor_numbers as $floor_number )                                 
-                    <option value="{{ $floor_number }}">{{ $floor_number }}</option>
-                  @endforeach
-                </select>
-                @error('floor_no') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
-            </div>
-
-            <div class="col-sm-3 mt-3">
-              <div class="form-group">
-                <label>Flat Number</label>
-                <select wire:model="flat_no" class=" w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                   <option value="" @disabled(true)>--- Select An Option---</option>
-                  @foreach ($flat_numbers as $flat_number )                                 
-                    <option value="{{ $flat_number }}">{{ $flat_number }}</option>
-                  @endforeach
-                </select>
-                @error('flat_no') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
-            </div>
-
-            <div class="col-sm-3 mt-3">
-              <div class="form-group">
-                <label>Area :</label>
-                <input wire:model="area" type="number" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  placeholder="Please Enter Area">
-                @error('area') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
-            </div>
-
-          <!-- <div class="col-sm-3 mt-3">
-              <div class="form-group ">
-                <label>Maintainance Price :</label>
-                <input wire:model="maintainance_price" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Please Enter Floor Number">
-                @error('maintainance_price') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
-            </div>  -->
-
-          </div>
+@endif
           <div class="mt-3">
                  
             <div class="mb-4 col-sm-12 col-md-3">
@@ -121,18 +75,10 @@
               <button wire:click.prevent="download('{{ $adhar }}')" type="button" class="btn btn-success mb-0 text-white mt-3">Download</button>
               @endif
             </div>
-            <div class="mt-3">
-                  
-            <div class="mb-4 col-sm-12 col-md-3">
-              <h6>Registry :</h6>
-              <input class="demo1" type="file" wire:model="registry" value="drage and drop file here or select files" />
-              @error('registry') <span class="text-danger">{{ $message }}</span>@enderror
-              @if(!is_object($registry)&& $registry!='')
-              <button wire:click.prevent="download('{{ $adhar }}')" type="button" class="btn btn-success mb-0 text-white mt-3">Download</button>
-              @endif
-            </div>
-            <div class="mt-3">
-                
+
+
+
+            <div class="mt-3">  
             <div class="mb-4 col-sm-12 col-md-3">
               <h6>Profile-Picture:</h6>
               <input class="demo1" type="file" wire:model="profile_picture" value="drage and drop file here or select files" />
