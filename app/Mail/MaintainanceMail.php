@@ -8,6 +8,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use PDF;
+
 
 class MaintainanceMail extends Mailable
 {
@@ -59,8 +61,12 @@ class MaintainanceMail extends Mailable
      */
     public function build()
     {
-        
-        return $this->subject('Email From AllPHPTricks.com')
-                    ->view('email.testMail1');
+
+        $pdf = \PDF::loadView('email.emailPdf', $this->testMailData);
+
+        return $this->view('email.testMail')
+        ->to($this->testMailData['email'])
+        ->subject($this->testMailData['title'])
+        ->attachData($pdf->output(), 'text.pdf');
     }
 }

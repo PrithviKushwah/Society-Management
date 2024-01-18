@@ -10,15 +10,11 @@ use Livewire\WithPagination;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\QueryException;
-use Exception;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\MaintainanceMail;
-use PDF;
+use App\Jobs\SendEmailJob;
 
 
 
@@ -225,19 +221,13 @@ class Maintenance extends Component
             ];
             MaintenanceUser::Create($data);
 
+                    $testMailData = [
+                        'email' => 'kushwahprithvi78@yopmail.com',
+                        'title' => 'Your Email Title',
+                    ];
 
-        $testMailData["email"] = 'kushwahprithvi78@gmail.com';
-        $testMailData["title"] = "From Cloud1.com";
-        $testMailData["body"] = "This is Demo";
-  
-        $pdf = PDF::loadView('email.emailPdf', $testMailData);
-  
-        Mail::send('email.testMail', $testMailData, function($message)use($testMailData, $pdf ,$user) {
-            $message->to($testMailData["email"])
-                    ->subject($testMailData["title"])
-                    ->attachData($pdf->output(), "text.pdf");
-        });
-    
+                    dispatch(new SendEmailJob($testMailData));
+
          }
         
                session()->flash(
