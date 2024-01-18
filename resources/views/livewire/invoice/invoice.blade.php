@@ -184,7 +184,7 @@
                                                         <span class="text-secondary text-xs font-weight-bold">    {{$invoice->comment}}</span>
                                                     </td>                                             
                                                     <td class="align-middle text-center">
-                                                        <button rel="tooltip"  class="btn mb-0 btn-success btn-link bg-dark rounded-pill" href="" data-original-title="" title="">
+                                                        <button rel="tooltip" wire:click="edit('{{ $maintenance->uuid }}','edit')"  class="btn mb-0 btn-success btn-link bg-dark rounded-pill" href="" data-original-title="" title="">
                                                             <i class="material-icons">edit</i>
                                                             <div class="ripple-container"></div>
                                                         </button>

@@ -25,7 +25,9 @@ class Invoice extends Component
     $month,
     $created_for,
     $error_msg,
-    $payment_method;
+    $payment_method,
+    $search_year = ''
+    ,$search_month='';
 
     public function render()
 
@@ -35,8 +37,8 @@ class Invoice extends Component
         ->join('admins', 'invoices.created_by', '=', 'admins.id')
         ->select('invoices.*', 'users.user_name','users.area', 'admins.name')
         ->where('users.user_name', 'like', '%' . $this->search_name . '%')
-        // ->where('month', 'like', '%' . $this->search_month . '%')
-        // ->where('year', 'like', '%' . $this->search_year . '%')
+        ->where('month', 'like', '%' . $this->search_month . '%')
+        ->where('year', 'like', '%' . $this->search_year . '%')
         ->paginate($this->perPage);
         return view('livewire.invoice.invoice',
     [
@@ -64,7 +66,7 @@ class Invoice extends Component
         
         $this->created_by = '' ;
         $this->created_for = '' ;
-        $this->error_msg = '';
+        $this->error_msg = ''; 
         $this->comment = '';
         $this->month = '' ;
         $this->year = '';
@@ -72,7 +74,9 @@ class Invoice extends Component
         $this->payment_method = '';
         $this->uuid = '';
         $this->paid_amount = '';
-        
+        $this->search_year = '';
+        $this->search_month='';
+        $this->search_name= '';
     }
 
     public function store(){
@@ -100,8 +104,8 @@ class Invoice extends Component
             $data['uuid'] = $uuid;
             $data['created_by'] = $created_by;
         }
-
         $test = InvoiceModel::updateOrCreate(['uuid' => $this->uuid], $data);
+     
 
         session()->flash(
             'message',
@@ -109,5 +113,33 @@ class Invoice extends Component
         );
         $this->closeModal();
         $this->resetInputFields();
+    }
+
+    public function edit($uuid, $view)
+    {
+        $this->resetInputFields();
+        $maintenance = InvoiceModel::where('uuid', $uuid)->first();
+        if ($maintenance) {
+            $this->uuid = $maintenance->uuid;
+            $this->type = $maintenance->type;
+            $this->price = $maintenance->price;
+            $this->comment = $maintenance->comment;
+            $this->year = $maintenance->year;
+            $this->month = $maintenance->month;
+            $this->create_for = $maintenance->create_for;
+            $this->edit = 'edit';
+            if ($view == 'edit')
+            $this->openModal();
+            else
+                $this->openView();
+        }
+    }
+    public function delete($id)
+    {
+        $invoice = InvoiceModel::where('id', $id)->first();
+        if ($invoice) {
+            $invoice->delete();
+            session()->flash('delete', 'Invoice Deleted Successfully.');
+        }
     }
 }

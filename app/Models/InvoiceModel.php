@@ -17,6 +17,8 @@ class InvoiceModel extends Model
         'payment_method',
         'paid_amount',
         'remaining_amount',
-        'comment'
+        'comment',
+        'month',
+        'year'
     ];
 }

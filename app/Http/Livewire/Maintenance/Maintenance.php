@@ -221,7 +221,7 @@ class Maintenance extends Component
             ];
             MaintenanceUser::Create($data);
 
-                    $testMailData = [
+                    $testMailData = [ 
                         'email' => 'kushwahprithvi78@yopmail.com',
                         'title' => 'Your Email Title',
                     ];
