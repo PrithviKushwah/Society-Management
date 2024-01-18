@@ -36,8 +36,14 @@ class AdminManagement extends Component
 
     public $isOpen = 0, $isView = 0;
 
+    public $check_role ;
+
+    public function mount(){
+        $this->check_role = auth()->user();
+    }
     public function render()
     {
+        
         $admins = Admin::where('name', 'like', '%' . $this->search_name . '%')
             ->where('role', '!=', 'admin')
             ->paginate($this->perPage);
@@ -47,6 +53,7 @@ class AdminManagement extends Component
                 'admins' => $admins,
             ]
         );
+       
     }
 
     public function create()
@@ -61,8 +68,21 @@ class AdminManagement extends Component
      */
     public function openModal()
     {
-        $this->isOpen = true;
+        if ($this->check_role && $this->check_role->isAdmin()) {
+            $this->isOpen = true;
+        } else {
+            $this->check();
+        }
     }
+
+    public function check()
+    {
+        session()->flash(
+            'delete',
+            'You do not have this permission'
+        );
+    }
+
 
     public function openView()
     {
@@ -98,6 +118,8 @@ class AdminManagement extends Component
  
     }
 
+   
+
     /**
      * The attributes that are mass assignable.
      *
@@ -105,6 +127,7 @@ class AdminManagement extends Component
      */
     public function store()
     {
+  
         try {
         
         $uuid = (string) Str::uuid();
@@ -149,14 +172,12 @@ class AdminManagement extends Component
                 $errorMessage = 'Error: The phone number  already exists.';
                 $this->errorMessage =  $errorMessage;
             } else {
-                // Handle other types of exceptions if needed
-                // Log the error, notify the user, or perform other actions
-                // ...
+                
                 echo "Error: An unexpected error occurred.";
             }
         }
-     
-    
+         
+
 }
 
     /**
@@ -188,10 +209,18 @@ class AdminManagement extends Component
      */
     public function delete($id)
     {
+
+        if ($this->check_role && $this->check_role->isAdmin()) {
         $admin = Admin::where('id', $id)->first();
         if ($admin) {
             $admin->delete();
             session()->flash('delete', 'Admin Deleted Successfully.');
+        }
+        } else {
+            session()->flash(
+                'delete',
+                'You do not have this permission'
+            );
         }
     }
 

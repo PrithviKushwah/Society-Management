@@ -67,5 +67,6 @@ class AppServiceProvider extends ServiceProvider
         View::share('flat_numbers', $flat_numbers);
         View::share('months', $months);
         View::share('years', $years);
+
     }
 }

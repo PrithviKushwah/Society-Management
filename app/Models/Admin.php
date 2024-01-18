@@ -11,6 +11,20 @@ class Admin extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     use Authenticatable;
     protected $table = 'admins';
     use HasFactory;
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isManager()
+    {
+        return $this->role === 'Manager';
+    }
+
+    public function isBlockManager()
+    {
+        return $this->role === 'Block Manager';
+    }
     protected $fillable = [
         'uuid',
         'name',

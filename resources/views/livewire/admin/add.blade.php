@@ -56,7 +56,7 @@
                 <select wire:model="role" class=" w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                    <option value="" @disabled(true)>--- Select An Option---</option>
                     <option value="Manager">Manager</option>
-                    <option value="Blok Manager">Blok Manager</option>
+                    <option value="Block Manager">Block Manager</option>
                 </select>
                 @error('role') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
