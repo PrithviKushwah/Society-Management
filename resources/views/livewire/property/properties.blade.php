@@ -29,9 +29,9 @@
                 </div>
                 <div class="me-3 my-3 text-start">
 
-                    <div class="text-end"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Add New Admin</button></div>
+                    <div class="text-end"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Add New Property</button></div>
                     @if($isOpen)
-                    @include('livewire.admin.add')
+                    @include('livewire.property.add')
                     @endif
                     @if($isView)
                     @include('livewire.admin.view')
@@ -110,8 +110,8 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    @if ($admins->count())
-                                                    @foreach ($admins as $key => $admin)
+                                                    @if ($property->count())
+                                                    @foreach ($property as $key => $admin)
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <div class="d-flex flex-column justify-content-center">
@@ -166,7 +166,7 @@
                                             </tbody>
                                         </table>
                                         <br>
-                                        {{ $admins->links() }}
+                                        {{ $property->links() }}
                                     </div>
                                 </div>
                             </div>

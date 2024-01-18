@@ -12,9 +12,9 @@ use App\Http\Livewire\User\UserDetail;
 use App\Http\Livewire\Admin\AdminManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Livewire\Maintenance\Maintenance;
-use App\Http\Livewire\Property\Properties;
 use App\Http\Controllers\EmailController;
 use App\Http\Livewire\Invoice\Invoice;
+use App\Http\Livewire\Property\Properties;
 
 
 

@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyModel extends Model
 {
     use HasFactory;
+    protected $table = 'properties';
+    protected $fillable = [
+        'uuid',
+        'user_id',
+        'block_no',
+        'floor_no',
+        'flat_no',
+        'area',
+        'registry',
+    ];
 }

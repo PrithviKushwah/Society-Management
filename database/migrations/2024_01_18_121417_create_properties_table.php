@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('flat_no')->nullable();
             $table->string('block_no')->nullable();

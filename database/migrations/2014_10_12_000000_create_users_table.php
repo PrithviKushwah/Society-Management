@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_picture')->nullable();
             $table->tinyInteger('status')->default('1');
             $table->string('owner_id')->default('0');
-            $table->string('flate_status')->default('0');
+            $table->string('flat_status')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });
