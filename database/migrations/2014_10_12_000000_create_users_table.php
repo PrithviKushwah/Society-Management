@@ -22,13 +22,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone')->nullable()->unique();
             $table->string('adhar')->nullable();
-            $table->string('registry')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->string('block_no')->nullable();
-            $table->string('floor_no')->nullable();
-            $table->string('flat_no')->nullable();
-            $table->string('area')->nullable();
-            $table->string('maintainance_price')->nullable();
+            $table->tinyInteger('status')->default('1');
+            $table->string('owner_id')->default('0');
+            $table->string('flate_status')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

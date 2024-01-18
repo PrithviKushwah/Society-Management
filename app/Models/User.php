@@ -24,13 +24,10 @@ class User extends Authenticatable
         'password',
         'phone',
         'adhar',
-        'registry',
         'profile_picture',
-        'block_no',
-        'floor_no',
-        'flat_no',
-        'area',
-        'maintainance_price'
+        'status',
+        'flate_status',
+        'owner_id',        
     ];
 
     /**

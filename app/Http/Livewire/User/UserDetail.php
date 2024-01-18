@@ -31,16 +31,12 @@ class UserDetail extends Component
     $name,
     $email,
     $password,
-    $registry,
     $profile_picture,
     $phone,
-    $adhar,
-    $block_no,
-    $floor_no,
-    $flat_no,
-    $area,
+    $adhar,    
     $maintainance_price,
-    $errorMessage;
+    $errorMessage,
+    $status;
     
     public $isOpen = 0 , $isView = 0;
 
@@ -98,14 +94,10 @@ class UserDetail extends Component
         $this->password = '';
         $this->phone = '';
         $this->adhar = '';
-        $this->registry = '';
-        $this->profile_picture = '';
-        $this->block_no = '';
-        $this->floor_no = '';
-        $this->flat_no = '';
-        $this->area = '';
+        $this->profile_picture = '';      
         $this->email = '';
         $this->errorMessage = '';
+        $this->status = '';
     }
 
     /**
@@ -123,26 +115,13 @@ class UserDetail extends Component
             'password' => 'required',
             'phone' => 'required',
             'adhar' => 'required',
-            'registry' => 'required',
             'profile_picture' => 'required',
-            'block_no' => 'required',
-            'floor_no' => 'required',
-            'flat_no' => 'required',
-            'area' => 'required',           
         ]);
-
 
         $data = [
             'user_name' => $this->name,
             'password' => $this->password,
-            'phone' => $this->phone,
-            'adhar' => $this->adhar,
-            'registry' => $this->registry,
-            'profile_picture' => $this->profile_picture,
-            'block_no' => $this->block_no,
-            'floor_no' => $this->floor_no,
-            'flat_no' => $this->flat_no,
-            'area' => $this->area,           
+            'phone' => $this->phone,                                        
         ];
 
         if ($this->uuid == null) {
@@ -152,16 +131,16 @@ class UserDetail extends Component
             $data['uuid'] = $uuid;
             $data['email'] = $this->email;   
         }
+
+            if ($this->status) { 
+                $data['status'] = $this->status;
+            }
         if (is_object($this->adhar)) {
             $adhar = $this->adhar->store('public/adhar');
             $filename = basename($adhar);
             $data['adhar'] = $filename;
         }
-        if (is_object($this->registry)) {
-            $registry = $this->registry->store('public/registry');
-            $filename = basename($registry);
-            $data['registry'] = $filename;
-        }
+ 
         if (is_object($this->profile_picture)) {
             $profile_picture = $this->profile_picture->store('public/profile_picture');
             $filename = basename($profile_picture);
@@ -208,13 +187,8 @@ class UserDetail extends Component
             $this->password = $user->password;
             $this->phone = $user->phone;
             $this->adhar = $user->adhar;
-            $this->registry = $user->registry;
             $this->profile_picture = $user->profile_picture;
-            $this->block_no = $user->block_no;
-            $this->floor_no = $user->floor_no;
-            $this->flat_no = $user->flat_no;
-            $this->area = $user->area;
-           
+            $this->status = $user->status;               
            if($view == 'edit')
             $this->openModal();
             else
