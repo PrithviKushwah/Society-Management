@@ -38,6 +38,12 @@ class Login extends Component
             return redirect('/dashboard');
         }
 
+        if (Auth::attempt($attributes)) {
+            // Regular user login successful
+            session()->regenerate();
+            return redirect('/flat-management');
+        }
+
         throw ValidationException::withMessages([
             'email' => 'Your provided credentials could not be verified.',
         ]);

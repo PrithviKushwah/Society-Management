@@ -168,7 +168,7 @@ class UserDetail extends Component
                 // ...
                 echo "Error: An unexpected error occurred.";
             }
-}
+    }
     }
 
     /**

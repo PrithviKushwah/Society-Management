@@ -29,12 +29,12 @@
                 </div>
                 <div class="me-3 my-3 text-start">
 
-                    <div class="text-end"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Add New Property</button></div>
+                    <div class="text-end"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Add Property On Rent</button></div>
                     @if($isOpen)
-                    @include('livewire.property.add')
+                    @include('livewire.flat-management.add')
                     @endif
                     @if($isView)
-                    @include('livewire.property.view')
+                    @include('livewire.flat-management.view')
                     @endif
 
                 </div>
@@ -86,7 +86,7 @@
                                             <span class="nav-link mb-0 ml-2 active " data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i class="fa fa-print" aria-hidden="true"></i></span>
                                         </div>
                                         <div class="export header-btn ms-2">
-                                            <a href="{{route('property_export')}}"><span class="nav-link mb-0  active" data-bs-toggle="tooltip" data-bs-placement="top" title="Export CSV"><i class="fas fa-file-export"></i></span></a>
+                                            <a href="{{route('user_export')}}"><span class="nav-link mb-0  active" data-bs-toggle="tooltip" data-bs-placement="top" title="Export CSV"><i class="fas fa-file-export"></i></span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -97,74 +97,88 @@
                                                 <tr class="bg-dark">
                                                     <th class="text-uppercase text-xxs font-weight-bolder">S. No.</th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder ps-2">
-                                                      User Name</th>
+                                                        NAME</th>
+                                                        <th class="text-uppercase text-xxs font-weight-bolder ps-2">
+                                                        PROPERTY</th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                        Registry
+                                                        EMIAL
                                                     </th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    Block No</th>
+                                                    PHONE</th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    Floor No</th> 
+                                                    ADHAR</th>                                                    
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    Flat No</th>
+                                                    PROFILE PICTURE </th>      
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    Area</th>                                                   
-                                                    <th class="text-uppercase text-xxs font-weight-bolder">Action</th>
+                                                    STATUS </th>                                                                                                                                                                                                           
+                                                    <th class="text-uppercase text-xxs font-weight-bolder">ACTION</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    @if ($properties->count())
-                                                    @foreach ($properties as $key => $property)
+                                                    @if ($users->count())
+                                                    @foreach ($users as $key => $user)
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <div class="d-flex flex-column justify-content-center">
-                                                                <p class="mb-0 text-sm">{{($properties->currentPage()-1)*$perPage+$key +1 }}</p>
+                                                                <p class="mb-0 text-sm">{{($users->currentPage()-1)*$perPage+$key +1 }}</p>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="text-center justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $property->user_name }}</h6>
+                                                            <h6 class="mb-0 text-sm">{{ $user->user_name }}</h6>
 
                                                         </div>
-                                                    </td>                                                    
+                                                    </td>
 
-                                                       <td class="align-middle text-center">                                                        
-                                                    <a href="{{ asset('storage/registry/' . $property->registry) }}" download>Download Registry
-                                                            </a>
-                                                        </td>
+                                                    <td>
+                                                        <div class="text-center justify-content-center">
+                                                            <h6 class="mb-0 text-sm">Block {{ $user->block_no}}, Floor No {{ $user->floor_no}},Flat No {{ $user->flat_no}}</h6>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class=" text-center">
+                                                        <div class=" px-2 py-1">
+                                                            <div class="d-flex flex-column justify-content-center text-center">
+                                                                <span class="text-secondary text-xs font-weight-bold text-center">{{ $user->email }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
 
                                                     <td class="align-middle text-center text-sm">
                                                         <p class="text-xs text-secondary mb-0">
-                                                            {{ $property->block_no }}
+                                                            {{ $user->phone }}
                                                         </p>
                                                     </td>
-                                                    
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $property->floor_no }}</span>
-                                                    </td>    
-                                                    
-                                                     <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $property->flat_no }}</span>
+                                                    <td class="align-middle text-center">                                                        
+                                                    <a href="{{ asset('storage/adhar/' . $user->adhar) }}" download>Download Adhar
+                                                </a>
+                                                        </td>
+                                                       
+                                                        <td class="align-middle text-center">                                                        
+                                                          <img width='80' src="{{ asset('storage/profile_picture/' . $user->profile_picture) }}" alt="alt">                                                    
+                                                        </td>    
+                                                        
+                                                    <td class="align-middle text-center text-sm">                                                        
+                                                        {{ isset($user->status) && $user->status == 1 ? 'Active' : 'inActive' }}
                                                     </td>
-
-                                                     <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $property->area }}</span>
-                                                    </td>
+ 
+                                                                                                    
                                                     <td class="align-middle text-center">
-                                                        <button rel="tooltip" wire:click="edit('{{ $property->uuid }}','edit')" class="btn mb-0 btn-success btn-link bg-dark rounded-pill" href="" data-original-title="" title="">
+                                                        <button rel="tooltip" wire:click="edit('{{ $user->uuid }}','edit')" class="btn mb-0 btn-success btn-link bg-dark rounded-pill" href="" data-original-title="" title="">
                                                             <i class="material-icons">edit</i>
                                                             <div class="ripple-container"></div>
                                                         </button>
-                                                        {{-- <button rel="tooltip" wire:click="edit('{{ $property->uuid }}','view')" class="btn mb-0 btn-success btn-link bg-dark rounded-pill" href="" data-original-title="" title="">
+                                                        <button rel="tooltip" wire:click="edit('{{ $user->uuid }}','view')" class="btn mb-0 btn-success btn-link bg-dark rounded-pill" href="" data-original-title="" title="">
                                                             <i class="material-icons">visibility</i>
                                                             <div class="ripple-container"></div>
-                                                        </button> --}}
-                                                        <button type="button" wire:click="delete('{{ $property->id }}')" class="btn mb-0 btn-danger btn-link rounded-pill" data-original-title="" title="">
+                                                        </button>
+                                                        <button type="button" wire:click="delete('{{ $user->id }}')" class="btn mb-0 btn-danger btn-link rounded-pill" data-original-title="" title="">
                                                             <i class="material-icons">close</i>
                                                             <div class="ripple-container"></div>
                                                         </button>
+                                                        <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this partner?')">Delete</button> -->
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -176,7 +190,7 @@
                                             </tbody>
                                         </table>
                                         <br>
-                                        {{ $properties->links() }}
+                                        {{ $users->links() }}
                                     </div>
                                 </div>
                             </div>

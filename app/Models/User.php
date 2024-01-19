@@ -26,8 +26,9 @@ class User extends Authenticatable
         'adhar',
         'profile_picture',
         'status',
-        'flate_status',
-        'owner_id',        
+        'flat_status',
+        'owner_id',
+        'asign_property_id',        
     ];
 
     /**

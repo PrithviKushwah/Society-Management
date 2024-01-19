@@ -1,7 +1,10 @@
+             <?php 
+  $user = auth()->user();   
+?>
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href=" {{ route('dashboard') }} ">
+        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href="{{ isset($user['user_name']) ? '#' : route('dashboard') }}">
             <img src="{{ asset('assets/img/3dlogo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-2 font-weight-bold text-white"></span>
         </a>
@@ -9,6 +12,8 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
+
+        @if(isset($user['name']) )
             <li class="nav-item">
                 <a class="px-1 nav-link text-white {{ Route::currentRouteName() == 'dashboard' ? ' active bg-gradient-primary' : '' }} " href="{{ route('dashboard') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -18,6 +23,7 @@
                 </a>
             </li>
 
+
             <li class="nav-item">
                 <a class="px-0 nav-link text-white {{ Route::currentRouteName() == 'admin_management' ? ' active bg-gradient-primary' : '' }} " href="{{ route('admin_management') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -26,9 +32,8 @@
                     <span class="nav-link-text ms-1">Admin Management</span>
                     
                 </a>
-            </li>
-            
-           
+            </li>          
+
             <li class="nav-item">
                 <a href="{{ route('User Detail') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'User Detail' ? ' active bg-gradient-primary' : '' }}">
                 <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
@@ -55,6 +60,14 @@
                 
             </li>
 
+        @elseif(isset($user['user_name'])) 
+         <li class="nav-item">
+                <a href="{{ route('flat-management') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'flat-management' ? ' active bg-gradient-primary' : '' }}">
+                <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
+                <span class="nav-link-text ms-1">Flat Management</span> </a>
+                
+            </li>
+          @endif 
                     <!-- <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                         <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i> 

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use App\Models\PropertyModel;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -47,12 +48,18 @@ class Properties extends Component
 
     public function render()
     {
-        $properties = PropertyModel::where('user_id', 'like', '%' . $this->area . '%')
-            ->paginate($this->perPage);
+
+        $properties = DB::table('properties')
+        ->join('users', 'properties.user_id', '=', 'users.id')
+        ->select('properties.*', 'users.user_name')
+        ->where('users.user_name', 'like', '%' . $this->search_name . '%')
+        ->paginate($this->perPage);
+
+   
         return view(
             'livewire.property.properties',
             [
-                'property' => $properties,
+                'properties' => $properties,
             ]
         );
     }
@@ -111,6 +118,17 @@ class Properties extends Component
      */
     public function store()
     {
+        $property = PropertyModel::where('user_id', $this->user_id)
+        ->where('block_no', $this->block_no)
+        ->where('floor_no' , $this->floor_no)
+        ->where('flat_no' , $this->flat_no)
+        ->first();
+
+        if ($property && $this->uuid == null) {
+            session()->flash('delete', 'Property already exists.');            
+            $this->closeModal();
+            $this->resetInputFields();
+        }
         
         $uuid = (string) Str::uuid();
 
@@ -134,9 +152,11 @@ class Properties extends Component
             'area' => $this->area,           
         ];
 
-        
-        $data['uuid'] = $uuid;
-        
+
+        if ($this->uuid == null) {
+          
+            $data['uuid'] = $uuid;
+        }        
 
         if (is_object($this->registry)) {
             $registry = $this->registry->store('public/registry');
@@ -147,7 +167,7 @@ class Properties extends Component
         PropertyModel::updateOrCreate(['uuid' => $this->uuid], $data);
         session()->flash(
             'message',
-            $this->uuid ? 'User Updated Successfully.' : 'User Created Successfully.'
+            $this->uuid ? 'Property Updated Successfully.' : 'Property Created Successfully.'
         );
 
         $this->closeModal();
@@ -164,15 +184,15 @@ class Properties extends Component
     public function edit($uuid ,$view)
     {
         $this->resetInputFields();
-        $user = User::where('uuid', $uuid)->first();
-        if ($user) {
-            $this->uuid = $user->uuid;            
-            $this->registry = $user->registry;
-            $this->block_no = $user->block_no;
-            $this->floor_no = $user->floor_no;
-            $this->flat_no = $user->flat_no;
-            $this->area = $user->area;
-           
+        $property = PropertyModel::where('uuid', $uuid)->first();
+        if ($property) {
+            $this->uuid = $property->uuid;
+            $this->user_id = $property->user_id;
+            $this->registry = $property->registry;
+            $this->block_no = $property->block_no;
+            $this->floor_no = $property->floor_no;
+            $this->flat_no = $property->flat_no;
+            $this->area = $property->area;           
            if($view == 'edit')
             $this->openModal();
             else
@@ -186,10 +206,10 @@ class Properties extends Component
      */
     public function delete($id)
     {
-        $user = PropertyModel::where('id', $id)->first();
-        if ($user) {
-            $user->delete();
-            session()->flash('delete', 'User Deleted Successfully.');
+        $property = PropertyModel::where('id', $id)->first();
+        if ($property) {
+            $property->delete();
+            session()->flash('delete', 'Property Deleted Successfully.');
         }
     }
 
@@ -202,7 +222,7 @@ class Properties extends Component
                 $rows[] = $student->toArray();
             });
 
-        SimpleExcelWriter::streamDownload('students.csv')
+        SimpleExcelWriter::streamDownload('property.csv')
             ->addRows($rows);
     }
 

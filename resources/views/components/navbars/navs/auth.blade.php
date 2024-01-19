@@ -3,22 +3,18 @@
 
   <div class="container-fluid d-flex w-100">
 <?php 
-  use Illuminate\Support\Facades\Auth;
-  $auth_id = Auth::id(); 
-  $admin = App\Models\Admin::where('id' , $auth_id)->first(); 
-  
-  ?>
+  $user = auth()->user();   
+?>
 
-    <ul class="navbar-nav w-40">
-      <li class="nav-item nav-profile">
-            <a class="nav-link text-white px-0" href="#" data-bs-toggle="dropdown" >
-              <img src="assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="profile">
-              <span class="nav-profile-name">{{ $admin->name }}</span>
-            </a>
-            
-          </li>
-        
-      </ul>
+<ul class="navbar-nav w-40">
+  <li class="nav-item nav-profile">
+    <a class="nav-link text-white px-0" href="#" data-bs-toggle="dropdown">
+      <img src="assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="profile">
+      <span class="nav-profile-name">{{ isset($user['user_name']) ? $user['user_name'] : $user['name'] }}</span>
+    </a>
+  </li>
+</ul>
+
       
       <button class="navbar-toggler text-white collapsed button-toggle-custom" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon">

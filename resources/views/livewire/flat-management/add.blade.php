@@ -1,6 +1,6 @@
 <div class="container-fluid py-4">
   <div class="row">
-        <h3 class="text-start">User Form</h3>
+        <h3 class="text-start">Property Form</h3>
     <form class="form-custom" enctype="multipart/form-data">
       <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
     
@@ -11,14 +11,24 @@
 
             <div class="col-sm-3 ">
               <div class="form-group">
+                <label>Property List</label>
+                <select  {{ isset($this->uuid) && $this->uuid != null ? 'disabled' : '' }} wire:model="property_id"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                  <option value="" @disabled(true)>--- Select An Option---</option>
+                  @foreach ($property_list as $property )                                 
+                    <option value="{{ $property->id }}">Block {{ $property->block_no}}, Floor No {{ $property->floor_no}},Flat No {{ $property->flat_no}}</option>
+                  @endforeach
+                </select>
+                @error('property_id') <span class="text-danger">{{ $message }}</span>@enderror
+              </div>
+            </div>
+
+            <div class="col-sm-3 ">
+              <div class="form-group">
                 <label>Name :</label>
                 <input wire:model="name" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Please Enter Name">
                 @error('name') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
-
-
-@if(!$uuid)
 
             <div class="col-sm-3 ">
               <div class="form-group ">
@@ -27,7 +37,7 @@
                 @error('email') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
-
+@if(!$uuid)
             <div class="col-sm-3 ">
               <div class="form-group">
                 <label>Password :</label>

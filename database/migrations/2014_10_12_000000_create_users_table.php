@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('status')->default('1');
             $table->string('owner_id')->default('0');
             $table->string('flat_status')->default('0');
+            $table->string('asign_property_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -5,7 +5,6 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\ResetPassword;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\ExampleLaravel\UserManagement;
 use App\Http\Livewire\ExampleLaravel\UserProfile;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\User\UserDetail;
@@ -15,6 +14,7 @@ use App\Http\Livewire\Maintenance\Maintenance;
 use App\Http\Controllers\EmailController;
 use App\Http\Livewire\Invoice\Invoice;
 use App\Http\Livewire\Property\Properties;
+use App\Http\Livewire\FlatManagement\FlatManagement;
 
 
 
@@ -44,12 +44,7 @@ Route::get('reset-password/{id}', ResetPassword::class)->middleware('signed')->n
 Route::get('sign-in', Login::class)->middleware('guest')->name('login');
 
 Route::get('user-profile', UserProfile::class)->middleware('auth')->name('user-profile');
-Route::get('user-management', UserManagement::class)->middleware('auth')->name('user-management');
 
-// Route::get('users', UserDetail::class)->middleware('auth')->name('User Detail');
-
-
-Route::get('export', [UserManagement::class ,'export'])->middleware('auth')->name('export');
 Route::get('user_export', [UserDetail::class, 'export'])->middleware('auth')->name('user_export');
 Route::get('admin_export', [AdminManagement::class, 'export'])->middleware('auth')->name('admin_export');
 
@@ -70,6 +65,10 @@ Route::group(['middleware' => ['web', 'auth:admins']], function () {
     Route::get('maintenance_export', [Maintenance::class, 'export'])->middleware('auth')->name('maintenance_export');
     Route::get('invoices', Invoice::class)->middleware('auth')->name('invoices');
     Route::get('properties', Properties::class)->middleware('auth')->name('properties');
+    Route::get('property_export', [Maintenance::class, 'export'])->middleware('auth')->name('property_export');
 
 });
-Route::get('/send-email', [EmailController::class, 'index']);
+
+Route::group(['middleware' => ['auth:web']], function () {
+     Route::get('flat-management', FlatManagement::class)->middleware('auth')->name('flat-management');
+});
