@@ -62,9 +62,9 @@
 
         @elseif(isset($user['user_name'])) 
          <li class="nav-item">
-                <a href="{{ route('flat-management') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'flat-management' ? ' active bg-gradient-primary' : '' }}">
+                <a href="{{ route('user') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'user' ? ' active bg-gradient-primary' : '' }}">
                 <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
-                <span class="nav-link-text ms-1">Flat Management</span> </a>
+                <span class="nav-link-text ms-1">User</span> </a>
                 
             </li>
           @endif 

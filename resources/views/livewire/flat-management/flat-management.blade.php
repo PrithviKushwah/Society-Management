@@ -29,7 +29,7 @@
                 </div>
                 <div class="me-3 my-3 text-start">
 
-                    <div class="text-end"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Add Property On Rent</button></div>
+                    <div class="text-end"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Add User</button></div>
                     @if($isOpen)
                     @include('livewire.flat-management.add')
                     @endif

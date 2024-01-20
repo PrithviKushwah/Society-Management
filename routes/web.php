@@ -70,5 +70,5 @@ Route::group(['middleware' => ['web', 'auth:admins']], function () {
 });
 
 Route::group(['middleware' => ['auth:web']], function () {
-     Route::get('flat-management', FlatManagement::class)->middleware('auth')->name('flat-management');
+     Route::get('sub-user', FlatManagement::class)->middleware('auth')->name('user');
 });
