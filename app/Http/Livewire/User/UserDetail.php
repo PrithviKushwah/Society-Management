@@ -43,6 +43,7 @@ class UserDetail extends Component
     public function render()
     {
         $users = User::where('user_name', 'like', '%' . $this->search_name . '%')
+        ->where('owner_id' , '=' , '0')
             ->paginate($this->perPage);
         return view(
             'livewire.user.user-detail',
