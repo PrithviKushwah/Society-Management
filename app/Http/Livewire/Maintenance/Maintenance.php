@@ -36,6 +36,7 @@ class Maintenance extends Component
     $user_detail,
     $uuid,
     $month,
+    $area,
     $year,
     $price,
     $create_by,
@@ -172,7 +173,7 @@ class Maintenance extends Component
                 'type' => 'required',
                 'create_for' => 'required',
             ]);  
-            $users = User::where('id' , $this->create_for)->select('id', 'area','email')->get();
+            $users = User::where('id' , $this->create_for)->select('id','email')->get();
             $maintenance = MaintenanceUser::where('month', '=', $this->month)
             ->where('year', '=', $this->year)
             ->where('create_for' , '=' , $this->create_for)
