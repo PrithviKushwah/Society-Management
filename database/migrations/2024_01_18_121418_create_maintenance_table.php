@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->nullable()->unique();
             $table->unsignedBigInteger('create_by')->nullable();
-            $table->unsignedBigInteger('create_for')->nullable();
+            $table->unsignedBigInteger('property_id')->nullable();
             $table->string('month')->nullable();
             $table->string('year')->nullable();
             $table->string('price')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('total_cost')->nullable();
             $table->string('comment')->nullable();
             $table->foreign('create_by')->references('id')->on('admins')->onDelete('cascade');
-            $table->foreign('create_for')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
             $table->timestamps();
         });
     }

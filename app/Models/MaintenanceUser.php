@@ -18,7 +18,8 @@ class MaintenanceUser extends Model
         'total_cost',
         'comment',
         'create_by',
-        'create_for'
+        'create_for',
+        'property_id',
     ];
     public function user()
     {

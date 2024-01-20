@@ -168,7 +168,7 @@
                                                         <div class=" px-2 py-1">
                                                             <div class="d-flex flex-column justify-content-center text-center">
                                                                 <!-- <span class="text-secondary text-xs font-weight-bold text-center">{{ $maintenance->user_name }}</span> -->
-                                                                <button rel="tooltip" wire:click="userView('{{ $maintenance->create_for }}')" class="open-user">
+                                                                <button rel="tooltip" wire:click="userView('{{ $maintenance->user_id }}')" class="open-user">
                                                                 {{ $maintenance->user_name }}
                                                             </button>
                                                             </div>

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\PropertyModel;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MaintainanceMail;
 use App\Jobs\SendEmailJob;
@@ -41,6 +42,7 @@ class Maintenance extends Component
     $price,
     $create_by,
     $create_for,
+    $property_id,
     $error_msg,
     $comment,
     $bulk,
@@ -53,14 +55,14 @@ class Maintenance extends Component
     public function render()
     {
         $maintenance_user = DB::table('maintenance')
-        ->join('users', 'maintenance.create_for', '=', 'users.id')
+        ->join('properties', 'maintenance.property_id', '=', 'properties.id')
         ->join('admins', 'maintenance.create_by', '=', 'admins.id')
-        ->select('maintenance.*', 'users.user_name','users.area', 'admins.name')
-        ->where('users.user_name', 'like', '%' . $this->search_name . '%')
+        ->join('users', 'properties.user_id', '=', 'users.id')
+        ->select('maintenance.*', 'properties.user_id' , 'properties.area' , 'users.user_name',  'admins.name')
+         ->where('users.user_name', 'like', '%' . $this->search_name . '%')
         ->where('month', 'like', '%' . $this->search_month . '%')
         ->where('year', 'like', '%' . $this->search_year . '%')
         ->paginate($this->perPage);
-        
       
         // $maintenance_user = MaintenanceUser::where('create_for', 'like', '%' . $this->search_name . '%')
         // ->where('month', 'like', '%' . $this->search_month . '%')
@@ -180,7 +182,7 @@ class Maintenance extends Component
             ->get();
                          
       }else{
-        $users = User::select('id','area','email')->get();
+        $propertys = PropertyModel::select('id','area')->get();
 
             $this->validate([
                 'month' => 'required',
@@ -198,7 +200,7 @@ class Maintenance extends Component
      
         if($maintenance->isEmpty()){
            
-        foreach($users as $user){
+        foreach($propertys as $property){
          
             $uuid = (string) Str::uuid();
             if($this->type == 'FIX PRICE'){
@@ -206,28 +208,28 @@ class Maintenance extends Component
             $tot_cost =  $this->price;
             }else if($this->type == 'PRICE BY AREA'){
                 
-            $tot_cost = $this->price * $user->area; 
+            $tot_cost = $this->price * $property->area; 
             }
-           
             $data = [
                 'uuid' =>$uuid ,
                 'month' => $this->month,
                 'year' => $this->year,
                 'create_by' => $created_by,
-                'create_for' => $user->id,
+                'property_id' => $property->id,
                 'price'=>$this->price,
                 'type'=>$this->type,
                 'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
+       
             MaintenanceUser::Create($data);
 
-                    $testMailData = [ 
-                        'email' => 'kushwahprithvi78@yopmail.com',
-                        'title' => 'Your Email Title',
-                    ];
+                    // $testMailData = [ 
+                    //     'email' => 'kushwahprithvi78@yopmail.com',
+                    //     'title' => 'Your Email Title',
+                    // ];
 
-                    dispatch(new SendEmailJob($testMailData));
+                    // dispatch(new SendEmailJob($testMailData));
 
          }
         
@@ -285,7 +287,7 @@ class Maintenance extends Component
             $this->comment = $maintenance->comment;
             $this->year = $maintenance->year;
             $this->month = $maintenance->month;
-            $this->create_for = $maintenance->create_for;
+            $this->property_id = $maintenance->property_id;
             $this->edit = 'edit';
             if ($view == 'edit')
             $this->openModal();
