@@ -156,6 +156,7 @@ class Maintenance extends Component
         $this->edit = '';
         $this->tot_cost ='';
         $this->user_detail = '';
+        $this->property_id = '';
     }
 
     /**
@@ -167,18 +168,19 @@ class Maintenance extends Component
 
     {
         
-      if($this->create_for != null || $this->single != null){
+      if($this->property_id != null || $this->single != null){
             $this->validate([
                 'month' => 'required',
                 'year' => 'required',
                 'price' => 'required',
                 'type' => 'required',
-                'create_for' => 'required',
+                'property_id' => 'required',
             ]);  
-            $users = User::where('id' , $this->create_for)->select('id','email')->get();
+            $propertys = PropertyModel::where('id' , '=' , $this->property_id)
+            ->select('id','area')->get();
             $maintenance = MaintenanceUser::where('month', '=', $this->month)
             ->where('year', '=', $this->year)
-            ->where('create_for' , '=' , $this->create_for)
+            ->where('property_id' , '=' , $this->property_id)
             ->get();
                          
       }else{
@@ -245,19 +247,19 @@ class Maintenance extends Component
 
         }
         }else{
-            $user = User::where('id' , $this->create_for)->select('id','area')->first();
-            if($this->type == 'fix_price'){
+            $property = PropertyModel::where('id' , $this->property_id)->select('id','area')->first();
+            if($this->type == 'FIX PRICE'){
                 $tot_cost =  $this->price;
                 }else{
-                $tot_cost = $this->price * $user->area; 
+                $tot_cost = $this->price * $property->area; 
                 }
+               
             $data = [
                 'price'=>$this->price,
                 'type'=>$this->type,
                 'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
-
             MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
 
             session()->flash(

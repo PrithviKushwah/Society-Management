@@ -9,13 +9,13 @@
       <div class="col-sm-3 ">
               <div class="form-group">
                 <label>User:</label>
-                <select wire:model="create_for" {{$edit != null && isset($create_for) && $create_for != null ? 'disabled' : '' }} class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <select wire:model="property_id" {{$edit != null && isset($property_id) && $property_id != null ? 'disabled' : '' }} class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>
                   <?php 
-                      $users = App\Models\User::select('id','user_name')->get();
+                      $properties = App\Models\PropertyModel::select('id','user_id')->get();
                   ?>
-                  @foreach ($users as $user )                                 
-                    <option value="{{ $user->id }}">{{ $user->user_name }}</option>
+                  @foreach ($properties as $property )                                 
+                    <option value="{{ $property->id }}">{{ $property->user->user_name }}</option>
                   @endforeach
                 </select>
                 @error('create_for') <span class="text-danger">{{ $message }}</span>@enderror

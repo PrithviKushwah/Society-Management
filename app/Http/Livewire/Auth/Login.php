@@ -41,7 +41,7 @@ class Login extends Component
         if (Auth::attempt($attributes)) {
             // Regular user login successful
             session()->regenerate();
-            return redirect('/flat-management');
+            return redirect('/sub-user');
         }
 
         throw ValidationException::withMessages([
