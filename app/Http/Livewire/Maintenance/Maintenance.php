@@ -232,12 +232,12 @@ class Maintenance extends Component
        
             MaintenanceUser::Create($data);
 
-                    // $testMailData = [ 
-                    //     'email' => 'kushwahprithvi78@yopmail.com',
-                    //     'title' => 'Your Email Title',
-                    // ];
+                    $testMailData = [ 
+                        'email' => 'kushwahprithvi78@gmail.com',
+                        'title' => 'Your Email Title',
+                    ];
 
-                    // dispatch(new SendEmailJob($testMailData));
+                    dispatch(new SendEmailJob($testMailData));
 
          }
         
