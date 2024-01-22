@@ -76,12 +76,11 @@
                 <label>PAYABLE AMOUNT:</label>
                 <input disabled wire:model="payable_amount" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
                  @if(!$this->month || !$this->year || !$this->created_for)
-                 <span class="text-dark" >Please select User , Year and Month</span>
-              
+                 <span class="text-dark" >Please select User , Year and Month</span>              
                  @elseif(empty($this->payable_amount ))
                  <span class="text-danger" >Maintanance amount not exist for this user</span>
                  @endif
-
+                @error('payable_amount') <span class="text-danger">Please select User , Year and Month</span>@enderror
                 </div>
 
             </div>
