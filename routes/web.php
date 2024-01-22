@@ -56,7 +56,7 @@ Route::get('admin_export', [AdminManagement::class, 'export'])->middleware('auth
 
 // });
 
-Route::group(['middleware' => ['web', 'auth:admins']], function () {
+Route::group(['middleware' => ['web', 'auth:admins' , 'admin']], function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');
     Route::get('profile', Profile::class)->name('profile');
     Route::get('users', UserDetail::class)->middleware('auth')->name('User Detail');
