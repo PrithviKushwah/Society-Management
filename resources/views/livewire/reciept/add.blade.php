@@ -8,9 +8,15 @@
           @endif
             <div class="col-sm-3 ">
               <div class="form-group">
+<<<<<<< HEAD
                 <label>Property List:</label>
                 <select wire:model="property_id" {{$uuid != null && isset($property_id) && $property_id != null ? 'disabled' : '' }} class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>                  
+=======
+                <label>USER:</label>
+                <select wire:model="property_id"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                  <option value="" @disabled(true)>--- Select An Option---</option>                
+>>>>>>> 82b53893c4578224c897c61ccafb3f61f8391b67
                   @foreach ($this->properties as $property )                                 
                     <option value="{{ $property->id }}"> {{ $property->user->user_name }} Block {{ $property->block_no}}, Floor No {{ $property->floor_no}},Flat No {{ $property->flat_no}}</option>
                   @endforeach

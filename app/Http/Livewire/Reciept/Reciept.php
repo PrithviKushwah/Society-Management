@@ -35,6 +35,7 @@ class Reciept extends Component
 
     public function mount(){
         $this->properties = PropertyModel::all(); 
+       
     }
     public function render()
 
