@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('year')->nullable();
             $table->string('price')->nullable();
             $table->string('type')->nullable();
+            $table->string('transaction_type')->nullable();
             $table->string('total_cost')->nullable();
             $table->string('comment')->nullable();
             $table->foreign('create_by')->references('id')->on('admins')->onDelete('cascade');
