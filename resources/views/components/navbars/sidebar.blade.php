@@ -67,6 +67,12 @@
                 <span class="nav-link-text ms-1">User</span> </a>
                 
             </li>
+            <li class="nav-item">
+                <a href="{{ route('maintanence-history') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'maintanence-history' ? ' active bg-gradient-primary' : '' }}">
+                <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
+                <span class="nav-link-text ms-1">Maintanence History</span> </a>
+                
+            </li>
           @endif 
                     <!-- <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
