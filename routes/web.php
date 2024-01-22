@@ -15,6 +15,8 @@ use App\Http\Controllers\EmailController;
 use App\Http\Livewire\Invoice\Invoice;
 use App\Http\Livewire\Property\Properties;
 use App\Http\Livewire\FlatManagement\FlatManagement;
+use App\Http\Livewire\MaintanenceHistory\MaintanenceHistory;
+
 
 
 
@@ -70,5 +72,6 @@ Route::group(['middleware' => ['web', 'auth:admins']], function () {
 });
 
 Route::group(['middleware' => ['auth:web']], function () {
-     Route::get('sub-user', FlatManagement::class)->middleware('auth')->name('user');
+    Route::get('maintanence-history', MaintanenceHistory::class)->middleware('auth')->name('maintanence-history');
+    Route::get('sub-user', FlatManagement::class)->middleware('auth')->name('user');
 });
