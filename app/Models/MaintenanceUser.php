@@ -15,6 +15,7 @@ class MaintenanceUser extends Model
         'price',
         'year',
         'type',
+        'transaction_type',
         'total_cost',
         'comment',
         'create_by',

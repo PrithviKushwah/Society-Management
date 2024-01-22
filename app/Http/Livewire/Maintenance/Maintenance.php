@@ -220,6 +220,7 @@ class Maintenance extends Component
                 'property_id' => $property->id,
                 'price'=>$this->price,
                 'type'=>$this->type,
+                'transaction_type'=>'DR',
                 'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
