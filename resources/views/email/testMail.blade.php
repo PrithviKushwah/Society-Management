@@ -48,6 +48,9 @@
     <div class="invoice">
         <div class="invoice-header">
             <p>Invoice Date: January 17, 2024</p>
+            <p>{{
+            $title
+            }}<p>
         </div> 
     </div>
 

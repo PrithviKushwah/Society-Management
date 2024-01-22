@@ -64,7 +64,7 @@ class MaintainanceMail extends Mailable
 
         $pdf = \PDF::loadView('email.emailPdf', $this->testMailData);
 
-        return $this->view('email.testMail')
+        return $this->view('email.testMail' ,$this->testMailData )
         ->to($this->testMailData['email'])
         ->subject($this->testMailData['title'])
         ->attachData($pdf->output(), 'text.pdf');

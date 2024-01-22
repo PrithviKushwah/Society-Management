@@ -65,9 +65,11 @@
              ->select('total_cost')
              ->first();
              if(!empty( $maintenance)){
-           $this->payable_amount = '$'.' '.$maintenance->total_cost;
+           $this->payable_amount = '₹'.' '.$maintenance->total_cost;
+       
              }else{
               $this->payable_amount = '';
+              
              }
             ?>
             <div class="col-sm-3 mt-3 ">
