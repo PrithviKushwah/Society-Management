@@ -48,10 +48,15 @@ class Maintenance extends Component
     $bulk,
     $single,
     $edit,
-    $type = 'PRICE BY AREA';
+    $type = 'PRICE BY AREA',
+    $properties;
        
     public $isOpen = 0, $isView = 0 , $isBulkOpen = 0 , $isUserOpen = 0;
  
+    public function mount(){
+        
+        $this->properties = PropertyModel::select('id', 'user_id')->get();
+    }
     public function render()
     {
         $maintenance_user = DB::table('maintenance')

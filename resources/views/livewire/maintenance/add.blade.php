@@ -1,6 +1,6 @@
 <div class="container-fluid py-4">
   <div class="row">
-        <h3 class="text-start">SINGLE MAINTENANCE FORM</h3>
+        <h3 class="text-start">SINGLE MAINTENANCE</h3>
     <form class="form-custom" enctype="multipart/form-data">
       <div class="bg-white row">
       @if(isset($error_msg) && $error_msg!=null)
@@ -8,14 +8,11 @@
           @endif
       <div class="col-sm-3 ">
               <div class="form-group">
-                <label>User:</label>
+                <label>Property List:</label>
                 <select wire:model="property_id" {{$edit != null && isset($property_id) && $property_id != null ? 'disabled' : '' }} class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                  <option value="" @disabled(true)>--- Select An Option---</option>
-                  <?php 
-                      $properties = App\Models\PropertyModel::select('id','user_id')->get();
-                  ?>
-                  @foreach ($properties as $property )                                 
-                    <option value="{{ $property->id }}">{{ $property->user->user_name }}</option>
+                  <option value="" @disabled(true)>--- Select An Option---</option>                  
+                  @foreach ($this->properties as $property )                                 
+                    <option value="{{ $property->id }}"> {{ $property->user->user_name }} Block {{ $property->block_no}}, Floor No {{ $property->floor_no}},Flat No {{ $property->flat_no}}</option>
                   @endforeach
                 </select>
                 @error('create_for') <span class="text-danger">{{ $message }}</span>@enderror
@@ -61,11 +58,11 @@
 
             <div class=" mt-3">
               <input   type="radio" wire:model="type" value="PRICE BY AREA" >
-            <label for="css">Price By Area</label><br>
-            <input  type="radio" wire:model="type" value="FIX PRICE">
-            <label for="javascript">Fixed Price</label><br>
-            @error('type') <span class="text-danger">{{ $message }}</span>@enderror
-        </div>
+              <label for="css">Price By Area</label><br>
+              <input  type="radio" wire:model="type" value="FIX PRICE">
+              <label for="javascript">Fixed Price</label><br>
+              @error('type') <span class="text-danger">{{ $message }}</span>@enderror
+            </div>
 
             <div class="col-sm-3 mt-3">
               <div class="form-group">
