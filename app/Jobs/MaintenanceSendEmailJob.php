@@ -12,17 +12,17 @@ use App\Mail\MaintainanceMail;
 use Illuminate\Support\Facades\Mail;
 
 
-class SendEmailJob implements ShouldQueue
+class MaintenanceSendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $testMailData;
+    protected $maintenanceMailData;
     /**
      * Create a new job instance.
      */
-    public function __construct($testMailData)
+    public function __construct($maintenanceMailData)
     {
-        $this->testMailData = $testMailData;
+        $this->maintenanceMailData = $maintenanceMailData;
     }
 
     /**
@@ -30,7 +30,7 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->testMailData['email'])->send(new MaintainanceMail($this->testMailData));
+        Mail::to($this->maintenanceMailData['email'])->send(new MaintainanceMail($this->maintenanceMailData));
 
     }
 }

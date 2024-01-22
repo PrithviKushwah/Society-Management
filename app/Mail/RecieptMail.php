@@ -10,18 +10,17 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use PDF;
 
-
-class MaintainanceMail extends Mailable
+class RecieptMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $maintenanceMailData;
+    public $recieptMailData;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($maintenanceMailData)
+    public function __construct($recieptMailData)
     {
-        $this->maintenanceMailData = $maintenanceMailData;
+        $this->recieptMailData = $recieptMailData;
     }
 
     /**
@@ -30,13 +29,13 @@ class MaintainanceMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Maintainance Mail',
+            subject: 'Reciept Mail',
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
+    // /**
+    //  * Get the message content definition.
+    //  */
     // public function content(): Content
     // {
     //     return new Content(
@@ -62,11 +61,11 @@ class MaintainanceMail extends Mailable
     public function build()
     {
 
-        $pdf = PDF::loadView('email.maintenance.emailPdf', $this->maintenanceMailData);
+        $pdf = PDF::loadView('email.reciept.emailPdf', $this->recieptMailData);
 
-        return $this->view('email.maintenance.maintenanceMail' ,$this->maintenanceMailData )
-        ->to($this->maintenanceMailData['email'])
-        ->subject($this->maintenanceMailData['title'])
-        ->attachData($pdf->output(), 'text.pdf');
+        return $this->view('email.reciept.recieptMail', $this->recieptMailData)
+            ->to($this->recieptMailData['email'])
+            ->subject($this->recieptMailData['title'])
+            ->attachData($pdf->output(), 'text.pdf');
     }
 }

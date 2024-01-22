@@ -9,6 +9,7 @@ use App\Models\InvoiceModel;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PropertyModel;
+use App\Jobs\RecieptSendMail;
 
 class Reciept extends Component
 
@@ -117,8 +118,13 @@ class Reciept extends Component
             $data['created_by'] = $created_by;
         }
         $test = MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
-     
 
+        $recieptMailData = [
+            'email' => 'kushwahprithvi78@yopmail.com',
+            'title' => 'Your Email Title',
+        ];
+
+        dispatch(new RecieptSendMail($recieptMailData));
         session()->flash(
             'message',
             $this->uuid ? 'Reciept Updated Successfully.' : 'Reciept Created Successfully.'

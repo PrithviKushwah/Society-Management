@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PropertyModel;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MaintainanceMail;
-use App\Jobs\SendEmailJob;
+use App\Jobs\MaintenanceSendEmailJob;
 
 
 
@@ -232,12 +232,12 @@ class Maintenance extends Component
        
             MaintenanceUser::Create($data);
 
-                    $testMailData = [ 
-                        'email' => 'kushwahprithvi78@gmail.com',
+                    $maintenanceMailData = [ 
+                        'email' => 'kushwahprithvi78@yopmail.com',
                         'title' => 'Your Email Title',
                     ];
 
-                    dispatch(new SendEmailJob($testMailData));
+                    dispatch(new MaintenanceSendEmailJob($maintenanceMailData));
 
          }
         
