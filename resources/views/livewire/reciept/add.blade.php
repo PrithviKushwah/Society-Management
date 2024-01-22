@@ -6,13 +6,13 @@
       @if(isset($error_msg) && $error_msg!=null)
         <h6 class='text-danger'>{{$error_msg}}</h6> 
           @endif
-      <div class="col-sm-3 ">
+            <div class="col-sm-3 ">
               <div class="form-group">
-                <label>USER:</label>
-                <select wire:model="property_id"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <label>Property List:</label>
+                <select wire:model="property_id" {{$uuid != null && isset($property_id) && $property_id != null ? 'disabled' : '' }} class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>                  
                   @foreach ($this->properties as $property )                                 
-                    <option value="{{ $property->id }}">{{ $property->user->user_name }}</option>
+                    <option value="{{ $property->id }}"> {{ $property->user->user_name }} Block {{ $property->block_no}}, Floor No {{ $property->floor_no}},Flat No {{ $property->flat_no}}</option>
                   @endforeach
                 </select>
                 @error('property_id') <span class="text-danger">{{ $message }}</span>@enderror

@@ -84,11 +84,12 @@ class Reciept extends Component
         $this->search_year = '';
         $this->search_month='';
         $this->search_name= '';
+        $this->property_id = '';
     }
 
     public function store(){
         $this->validate([
-            'created_for' => 'required',
+            'property_id' => 'required',
             'year' => 'required',
             'month' => 'required',
             'payable_amount' => 'required',
@@ -99,14 +100,15 @@ class Reciept extends Component
 
         
         $data = [
-            'created_for' => $this->created_for,
+            'property_id' => $this->property_id,
             'year' => $this->year,
             'month' => $this->month,
             'transaction_type'=>'CR',
             'payable_amount' => $this->payable_amount,
             'paid_amount' => $this->paid_amount,
-            'payment_method' => $this->payment_method,   
-            'remaining_amount'=>$this->payable_amount -$this->paid_amount
+            'payment_method' => $this->payment_method,
+            'remaining_amount' => floatval($this->payable_amount) - floatval($this->paid_amount),
+            'comment' => $this->comment,
         ];
         if ($this->uuid == null)   {
             $uuid = (string) Str::uuid();
