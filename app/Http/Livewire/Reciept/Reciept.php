@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Invoice;
+namespace App\Http\Livewire\Reciept;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
@@ -8,8 +8,9 @@ use App\Models\MaintenanceUser;
 use App\Models\InvoiceModel;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\PropertyModel;
 
-class Invoice extends Component
+class Reciept extends Component
 
 {
     public $perPage='10', $search_name = '', $isOpen = 0 , $isUserOpen = 0,
@@ -27,8 +28,14 @@ class Invoice extends Component
     $error_msg,
     $payment_method,
     $search_year = ''
-    ,$search_month='';
+    ,$search_month='',
+    $properties,
+    $property_id;
 
+
+    public function mount(){
+        $this->properties = PropertyModel::all(); 
+    }
     public function render()
 
     {
@@ -40,7 +47,7 @@ class Invoice extends Component
         ->where('month', 'like', '%' . $this->search_month . '%')
         ->where('year', 'like', '%' . $this->search_year . '%')
         ->paginate($this->perPage);
-        return view('livewire.invoice.invoice',
+        return view('livewire.reciept.reciept',
     [
         'invoices' => $invoices 
     ]);
@@ -95,21 +102,23 @@ class Invoice extends Component
             'created_for' => $this->created_for,
             'year' => $this->year,
             'month' => $this->month,
+            'transaction_type'=>'CR',
             'payable_amount' => $this->payable_amount,
             'paid_amount' => $this->paid_amount,
             'payment_method' => $this->payment_method,   
+            'remaining_amount'=>$this->payable_amount -$this->paid_amount
         ];
         if ($this->uuid == null)   {
             $uuid = (string) Str::uuid();
             $data['uuid'] = $uuid;
             $data['created_by'] = $created_by;
         }
-        $test = InvoiceModel::updateOrCreate(['uuid' => $this->uuid], $data);
+        $test = MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
      
 
         session()->flash(
             'message',
-            $this->uuid ? 'Invoice Updated Successfully.' : 'Invoice Created Successfully.'
+            $this->uuid ? 'Reciept Updated Successfully.' : 'Reciept Created Successfully.'
         );
         $this->closeModal();
         $this->resetInputFields();
@@ -118,7 +127,7 @@ class Invoice extends Component
     public function edit($uuid, $view)
     {
         $this->resetInputFields();
-        $maintenance = InvoiceModel::where('uuid', $uuid)->first();
+        $maintenance = MaintenanceUser::where('uuid', $uuid)->first();
         if ($maintenance) {
             $this->uuid = $maintenance->uuid;
             $this->type = $maintenance->type;
@@ -136,10 +145,10 @@ class Invoice extends Component
     }
     public function delete($id)
     {
-        $invoice = InvoiceModel::where('id', $id)->first();
-        if ($invoice) {
-            $invoice->delete();
-            session()->flash('delete', 'Invoice Deleted Successfully.');
+        $Reciept = MaintenanceUser::where('id', $id)->first();
+        if ($Reciept) {
+            $Reciept->delete();
+            session()->flash('delete', 'Reciept Deleted Successfully.');
         }
     }
 }

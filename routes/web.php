@@ -12,7 +12,7 @@ use App\Http\Livewire\Admin\AdminManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Livewire\Maintenance\Maintenance;
 use App\Http\Controllers\EmailController;
-use App\Http\Livewire\Invoice\Invoice;
+use App\Http\Livewire\Reciept\Reciept;
 use App\Http\Livewire\Property\Properties;
 use App\Http\Livewire\FlatManagement\FlatManagement;
 use App\Http\Livewire\MaintanenceHistory\MaintanenceHistory;
@@ -65,7 +65,7 @@ Route::group(['middleware' => ['web', 'auth:admins' , 'admin']], function () {
     Route::get('admin-management', AdminManagement::class)->middleware('auth')->name('admin_management');
     Route::get('maintenance', Maintenance::class)->middleware('auth')->name('bulk-maintenance');
     Route::get('maintenance_export', [Maintenance::class, 'export'])->middleware('auth')->name('maintenance_export');
-    Route::get('invoices', Invoice::class)->middleware('auth')->name('invoices');
+    Route::get('reciept', Reciept::class)->middleware('auth')->name('reciept');
     Route::get('properties', Properties::class)->middleware('auth')->name('properties');
     Route::get('property_export', [Maintenance::class, 'export'])->middleware('auth')->name('property_export');
 

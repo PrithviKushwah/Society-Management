@@ -9,16 +9,13 @@
       <div class="col-sm-3 ">
               <div class="form-group">
                 <label>USER:</label>
-                <select wire:model="created_for"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                  <option value="" @disabled(true)>--- Select An Option---</option>
-                  <?php 
-                      $users = App\Models\User::select('id','user_name')->get();
-                  ?>
-                  @foreach ($users as $user )                                 
-                    <option value="{{ $user->id }}">{{ $user->user_name }}</option>
+                <select wire:model="property_id"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                  <option value="" @disabled(true)>--- Select An Option---</option>                  
+                  @foreach ($this->properties as $property )                                 
+                    <option value="{{ $property->id }}">{{ $property->user_id }}</option>
                   @endforeach
                 </select>
-                @error('created_for') <span class="text-danger">{{ $message }}</span>@enderror
+                @error('property_id') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
             
@@ -65,7 +62,7 @@
             <?php
             $maintenance = App\Models\MaintenanceUser::where('month','=',$this->month)
              ->where('year','=',$this->year)
-             ->where('create_for','=',$this->created_for)
+             ->where('property_id','=',$this->property_id)
              ->select('total_cost')
              ->first();
              if(!empty( $maintenance)){

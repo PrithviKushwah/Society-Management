@@ -33,11 +33,11 @@
                     <div class="text-end mx-2"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Create Invoice</button></div>
             </div>
                     @if($isOpen)
-                    @include('livewire.invoice.add')
+                    @include('livewire.reciept.add')
                     @endif
                     
                     @if($isUserOpen)
-                    @include('livewire.invoice.user_view')
+                    @include('livewire.reciept.user_view')
                     @endif
 
                 </div>
