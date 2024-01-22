@@ -12,7 +12,7 @@
                 <select wire:model="property_id"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>                  
                   @foreach ($this->properties as $property )                                 
-                    <option value="{{ $property->id }}">{{ $property->user_id }}</option>
+                    <option value="{{ $property->id }}">{{ $property->user->user_name }}</option>
                   @endforeach
                 </select>
                 @error('property_id') <span class="text-danger">{{ $message }}</span>@enderror
