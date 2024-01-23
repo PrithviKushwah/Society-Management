@@ -65,7 +65,6 @@ class RecieptMail extends Mailable
 
         return $this->view('email.reciept.recieptMail', $this->recieptMailData)
             ->to($this->recieptMailData['email'])
-            ->subject($this->recieptMailData['title'])
-            ->attachData($pdf->output(), 'text.pdf');
+            ->attachData($pdf->output(), 'reciept.pdf');
     }
 }

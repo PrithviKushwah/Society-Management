@@ -1,6 +1,6 @@
 <div class="container-fluid py-4">
   <div class="row">
-        <h3 class="text-start">INVOICE GENERATION FROM</h3>
+        <h3 class="text-start">RECIEPT</h3>
     <form class="form-custom" enctype="multipart/form-data">
       <div class="bg-white row">
       @if(isset($error_msg) && $error_msg!=null)

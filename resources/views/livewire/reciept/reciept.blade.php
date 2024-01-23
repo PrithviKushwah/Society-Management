@@ -30,7 +30,7 @@
                 <div class="me-3 my-3 text-start">
 
             <div class="d-flex justify-content-end">
-                    <div class="text-end mx-2"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Create Invoice</button></div>
+                    <div class="text-end mx-2"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Create Reciept</button></div>
             </div>
                     @if($isOpen)
                     @include('livewire.reciept.add')
