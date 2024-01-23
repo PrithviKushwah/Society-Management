@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Maintenance Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .invoice-details {
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Apartment Maintenance Invoice</h1>
+
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Amount</th>
+        </tr>
+        <tr>
+            <td>Maintenance Type</td>
+            <td><?= $maintenanceMailData['maintenance_type'] ?></td>
+            <td>$<?= number_format($maintenanceMailData['total'], 2) ?></td>
+        </tr>
+        <tr>
+            <td>Month</td>
+            <td><?= $maintenanceMailData['month'] ?> <?= $maintenanceMailData['year'] ?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Admin</td>
+            <td><?= $maintenanceMailData['admin'] ?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Area</td>
+            <td><?= $maintenanceMailData['area'] ?> sq.ft</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div class="invoice-details">
+        <p><strong>User:</strong> <?= $maintenanceMailData['user_name'] ?></p>
+        <p><strong>Email:</strong> <?= $maintenanceMailData['email'] ?></p>
+        <p><strong>Current Date:</strong> <?= $maintenanceMailData['current_date'] ?></p>
+    </div>
+
+    <div class="footer">
+        <p>Thank you for choosing our services!</p>
+    </div>
+
+</body>
+</html>

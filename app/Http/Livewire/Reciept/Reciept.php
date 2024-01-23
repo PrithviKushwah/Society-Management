@@ -44,7 +44,8 @@ class Reciept extends Component
         $invoices = DB::table('maintenance')
         ->join('properties', 'maintenance.property_id', '=', 'properties.id')
         ->join('users', 'properties.user_id', '=', 'users.id')
-        ->select('maintenance.*', 'users.user_name', 'properties.area')
+        ->join('admins', 'maintenance.create_by', '=', 'admins.id')
+        ->select('maintenance.*', 'users.user_name', 'properties.area','admins.name')
         ->where('maintenance.transaction_type' , 'cr')
         ->where('users.user_name', 'like', '%' . $this->search_name . '%')
         ->where('month', 'like', '%' . $this->search_month . '%')
@@ -108,11 +109,10 @@ class Reciept extends Component
             'year' => $this->year,
             'month' => $this->month,
             'transaction_type'=>'CR',
-            'payable_amount' => $this->payable_amount,
-            'paid_amount' => $this->paid_amount,
             'payment_method' => $this->payment_method,
-            'remaining_amount' => floatval($this->payable_amount) - floatval($this->paid_amount),
             'comment' => $this->comment,
+            'create_by'=>$created_by,
+            'total_amount' => $this->paid_amount
         ];
         if ($this->uuid == null)   {
             $uuid = (string) Str::uuid();

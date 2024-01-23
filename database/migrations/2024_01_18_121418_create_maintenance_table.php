@@ -21,10 +21,8 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->string('type')->nullable();
             $table->string('transaction_type')->nullable();
-            $table->string('total_cost')->nullable();
+            $table->string('total_amount')->nullable();
             $table->string('payment_method')->nullable();
-            $table->string('paid_amount')->nullable();
-            $table->string('remaining_amount')->nullable();
             $table->string('comment')->nullable();
             $table->foreign('create_by')->references('id')->on('admins')->onDelete('cascade');
             $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');

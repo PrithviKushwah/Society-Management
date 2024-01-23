@@ -124,11 +124,9 @@
                                                     
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
                                                     PAYMENT METHOD</th>
-                                                       
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
                                                     PAID AMOUNT</th>
-                                                    <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    REMAINING AMOUNT</th>
+                                                       
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
                                                     PAYMENT DATE</th>
                                                     
@@ -151,7 +149,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="text-center justify-content-center">
-                                                           <h6 class="mb-0 text-sm">{{ $invoice->user_name }}</h6> 
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->name }}</h6> 
 
                                                         </div>
                                                     </td>
@@ -170,12 +168,12 @@
                                                     <td class="align-middle text-center">
                                                         <span class="text-secondary text-xs font-weight-bold">    {{$invoice->payment_method}}</span>
                                                     </td> 
+                                                    
                                                     <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $invoice->paid_amount }}</span>
-                                                    </td>   
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold">   {{$invoice->remaining_amount}}</span>
-                                                    </td>      
+                                                        <span class="text-secondary text-xs font-weight-bold">    {{$invoice->total_amount}}</span>
+                                                    </td> 
+                   
+                                                       
                                                     <td class="align-middle text-center">
                                                         <span class="text-secondary text-xs font-weight-bold">  {{ date('d-m-Y', strtotime($invoice->created_at)) }}</span>
                                                     </td>   

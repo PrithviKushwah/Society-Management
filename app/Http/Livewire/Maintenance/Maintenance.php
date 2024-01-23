@@ -226,11 +226,11 @@ class Maintenance extends Component
                 'price'=>$this->price,
                 'type'=>$this->type,
                 'transaction_type'=>'DR',
-                'total_cost'=>$tot_cost,
+                'total_amount'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
 
-                    // MaintenanceUser::Create($data);
+                    MaintenanceUser::Create($data);
                     $mydate = Carbon\Carbon::now()->format('d-m-Y');
                     $maintenanceMailData = [
                         'email' => $property->user->email,
@@ -270,7 +270,7 @@ class Maintenance extends Component
             $data = [
                 'price'=>$this->price,
                 'type'=>$this->type,
-                'total_cost'=>$tot_cost,
+                'total_amount'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
             MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
