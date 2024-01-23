@@ -1,225 +1,379 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Invoice</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="license" href="https://www.opensource.org/licenses/mit-license/">
-		<script src="script.js"></script>
-	</head>
-	<body>
-        <style>
-            /* reset */
 
-*
-{
-	border: 0;
-	box-sizing: content-box;
-	color: inherit;
-	font-family: inherit;
-	font-size: inherit;
-	font-style: inherit;
-	font-weight: inherit;
-	line-height: inherit;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	text-decoration: none;
-	vertical-align: top;
-}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Maintanance Invoice</title>
+<meta name="robots" content="noindex,nofollow" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0;" />
 
-/* content editable */
 
-*[] { border-radius: 0.25em; min-width: 1em; outline: 0; }
 
-*[] { cursor: pointer; }
+<!-- Header -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+  <tr>
+    <td height="20"></td>
+  </tr>
+  <tr>
+    <td>
+      <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 10px 10px 0 0;">
+        <tr class="hiddenMobile">
+          <td height="40"></td>
+        </tr>
+        <tr class="visibleMobile">
+          <td height="30"></td>
+        </tr>
 
-*[]:hover, *[]:focus, td:hover *[], td:focus *[], img.hover { background: #DEF; box-shadow: 0 0 1em 0.5em #DEF; }
+        <tr>
+          <td>
+            <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+              <tbody>
+                <tr>
+                  <td>
+                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                      <tbody>
+                        <tr>
+                          <td align="left"> <img  src="../../../../public/assets/img/LogoCloud1.png" width="100" height="52" alt="logo" border="0" /></td>
+                        </tr>
+                        <tr class="hiddenMobile">
+                          <td height="40"></td>
+                        </tr>
+                        <tr class="visibleMobile">
+                          <td height="20"></td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                            Hello, {{$user_name}}.
+                            <br> Thank you for shopping from our store and for your order.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                      <tbody>
+                        <tr class="visibleMobile">
+                          <td height="20"></td>
+                        </tr>
+                        <tr>
+                          <td height="5"></td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 21px; color: #2d4971; letter-spacing: -1px; font-family: 'Open Sans', sans-serif; line-height: 1; vertical-align: top; text-align: right;">
+                            Invoice
+                          </td>
+                        </tr>
+                        <tr>
+                        <tr class="hiddenMobile">
+                          <td height="50"></td>
+                        </tr>
+                        <tr class="visibleMobile">
+                          <td height="20"></td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
+                            <small>Invoice</small> #800000025<br />
+                            <small>{{$current_date}}</small>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- /Header -->
+<!-- Order Details -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+  <tbody>
+    <tr>
+      <td>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+          <tbody>
+            <tr>
+            <tr class="hiddenMobile">
+              <td height="60"></td>
+            </tr>
+            <tr class="visibleMobile">
+              <td height="40"></td>
+            </tr>
+            <tr>
+              <td>
+                <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+                    <tr>
+                      <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;" width="52%" align="left">
+                        Address
+                      </th>
+                      <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="left">
+                        <small>Area</small>
+                      </th>
+                      <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="center">
+                        Quantity
+                      </th>
+                      <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="right">
+                        Total
+                      </th>
+                    </tr>
+                    <tr>
+                      <td height="1" style="background: #bebebe;" colspan="4"></td>
+                    </tr>
+                    <tr>
+                      <td height="10" colspan="4"></td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #2d4971;  line-height: 18px;  vertical-align: top; padding:10px 0;" class="article">
+					  Block:{{$block_no}}Flat:{{$flat_no}}Floor:{{$floor_no}}
+                      </td>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"><small>{{$area}}</small></td>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center">1</td>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="right">₹ {{$total}}</td>
+                    </tr>
+                    <tr>
+                      <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
+                    </tr>
+                    
+                    <tr>
+                      <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td height="20"></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- /Order Details -->
+<!-- Total -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+  <tbody>
+    <tr>
+      <td>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+          <tbody>
+            <tr>
+              <td>
 
-span[] { display: inline-block; }
+                <!-- Table Total -->
+                <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+                    <tr>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                        Total
+                      </td>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;" width="80">
+					  ₹ {{$total}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                        Shipping &amp; Handling
+                      </td>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                        $15.00
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                        <strong>Grand Total (Incl.Tax)</strong>
+                      </td>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                        <strong>$344.90</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #b0b0b0; line-height: 22px; vertical-align: top; text-align:right; "><small>TAX</small></td>
+                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #b0b0b0; line-height: 22px; vertical-align: top; text-align:right; ">
+                        <small>$72.40</small>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- /Table Total -->
 
-/* heading */
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- /Total -->
+<!-- Information -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+  <tbody>
+    <tr>
+      <td>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+          <tbody>
+            <tr>
+            <tr class="hiddenMobile">
+              <td height="60"></td>
+            </tr>
+            <tr class="visibleMobile">
+              <td height="40"></td>
+            </tr>
+            <tr>
+              <td>
+                <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
 
-h1 { font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; }
+                          <tbody>
+                            <tr>
+                              <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                <strong>BILLING INFORMATION</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="100%" height="10"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
+                                Philip Brooks<br> Public Wales, Somewhere<br> New York NY<br> 4468, United States<br> T: 202-555-0133
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
 
-/* table */
 
-table { font-size: 75%; table-layout: fixed; width: 100%; }
-table { border-collapse: separate; border-spacing: 2px; }
-th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
-th, td { border-radius: 0.25em; border-style: solid; }
-th { background: #EEE; border-color: #BBB; }
-td { border-color: #DDD; }
+                        <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                          <tbody>
+                            <tr class="visibleMobile">
+                              <td height="20"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                <strong>PAYMENT METHOD</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="100%" height="10"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
+                                Credit Card<br> Credit Card Type: Visa<br> Worldpay Transaction ID: <a href="#" style="color: #2d4971; text-decoration:underline;">4185939336</a><br>
+                                <a href="#" style="color:#b0b0b0;">Right of Withdrawal</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                          <tbody>
+                            <tr class="hiddenMobile">
+                              <td height="35"></td>
+                            </tr>
+                            <tr class="visibleMobile">
+                              <td height="20"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                <strong>SHIPPING INFORMATION</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="100%" height="10"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
+                                Sup Inc<br> Another Place, Somewhere<br> New York NY<br> 4468, United States<br> T: 202-555-0171
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
 
-/* page */
 
-html { font: 16px/1 'Open Sans', sans-serif; overflow: auto; padding: 0.5in; }
-html { background: #999; cursor: default; }
+                        <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                          <tbody>
+                            <tr class="hiddenMobile">
+                              <td height="35"></td>
+                            </tr>
+                            <tr class="visibleMobile">
+                              <td height="20"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                <strong>SHIPPING METHOD</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="100%" height="10"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
+                                UPS: U.S. Shipping Services
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr class="hiddenMobile">
+              <td height="60"></td>
+            </tr>
+            <tr class="visibleMobile">
+              <td height="30"></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- /Information -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
 
-body { box-sizing: border-box; height: 11in; margin: 0 auto; overflow: hidden; padding: 0.5in; width: 8.5in; }
-body { background: #FFF; border-radius: 1px; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); }
+  <tr>
+    <td>
+      <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 0 0 10px 10px;">
+        <tr>
+          <td>
+            <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+              <tbody>
+                <tr>
+                  <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                    Have a nice day.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="spacer">
+          <td height="50"></td>
+        </tr>
 
-/* header */
-
-header { margin: 0 0 3em; }
-header:after { clear: both; content: ""; display: table; }
-
-header h1 { background: #000; border-radius: 0.25em; color: #FFF; margin: 0 0 1em; padding: 0.5em 0; }
-header address { float: left; font-size: 75%; font-style: normal; line-height: 1.25; margin: 0 1em 1em 0; }
-header address p { margin: 0 0 0.25em; }
-header span, header img { display: block; float: right; }
-header span { margin: 0 0 1em 1em; max-height: 25%; max-width: 60%; position: relative; }
-header img { max-height: 100%; max-width: 100%; }
-header input { cursor: pointer; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; height: 100%; left: 0; opacity: 0; position: absolute; top: 0; width: 100%; }
-
-/* article */
-
-article, article address, table.meta, table.inventory { margin: 0 0 3em; }
-article:after { clear: both; content: ""; display: table; }
-article h1 { clip: rect(0 0 0 0); position: absolute; }
-
-article address { float: left; font-size: 125%; font-weight: bold; }
-
-/* table meta & balance */
-
-table.meta, table.balance { float: right; width: 36%; }
-table.meta:after, table.balance:after { clear: both; content: ""; display: table; }
-
-/* table meta */
-
-table.meta th { width: 40%; }
-table.meta td { width: 60%; }
-
-/* table items */
-
-table.inventory { clear: both; width: 100%; }
-table.inventory th { font-weight: bold; text-align: center; }
-
-table.inventory td:nth-child(1) { width: 26%; }
-table.inventory td:nth-child(2) { width: 38%; }
-table.inventory td:nth-child(3) { text-align: right; width: 12%; }
-table.inventory td:nth-child(4) { text-align: right; width: 12%; }
-table.inventory td:nth-child(5) { text-align: right; width: 12%; }
-
-/* table balance */
-
-table.balance th, table.balance td { width: 50%; }
-table.balance td { text-align: right; }
-
-/* aside */
-
-aside h1 { border: none; border-width: 0 0 1px; margin: 0 0 1em; }
-aside h1 { border-color: #999; border-bottom-style: solid; }
-
-/* javascript */
-
-.add, .cut
-{
-	border-width: 1px;
-	display: block;
-	font-size: .8rem;
-	padding: 0.25em 0.5em;	
-	float: left;
-	text-align: center;
-	width: 0.6em;
-}
-
-.add, .cut
-{
-	background: #9AF;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-	background-image: -moz-linear-gradient(#00ADEE 5%, #0078A5 100%);
-	background-image: -webkit-linear-gradient(#00ADEE 5%, #0078A5 100%);
-	border-radius: 0.5em;
-	border-color: #0076A3;
-	color: #FFF;
-	cursor: pointer;
-	font-weight: bold;
-	text-shadow: 0 -1px 2px rgba(0,0,0,0.333);
-}
-
-.add { margin: -2.5em 0 0; }
-
-.add:hover { background: #00ADEE; }
-
-.cut { opacity: 0; position: absolute; top: 0; left: -1.5em; }
-.cut { -webkit-transition: opacity 100ms ease-in; }
-
-tr:hover .cut { opacity: 1; }
-
-@media print {
-	* { -webkit-print-color-adjust: exact; }
-	html { background: none; padding: 0; }
-	body { box-shadow: none; margin: 0; }
-	span:empty { display: none; }
-	.add, .cut { display: none; }
-}
-
-@page { margin: 0; }
-        </style>
-		<header>
-			<h1>Maintenance</h1>
-			<address >
-				<p>{{$user_name}}</p>				
-			</address>
-			<span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png"><input type="file" accept="image/*"></span>
-		</header>
-		<article>
-			<h1>Recipient</h1>
-			<address >
-				<p>Cloud1<br>{{ $admin }}</p>
-			</address>
-			<table class="meta">
-				<tr>
-					<th><span >Maintenance #</span></th>
-					<td><span >101138</span></td>
-				</tr>
-				<tr>
-					<th><span >Date</span></th>
-					<td><span >{{ $current_date }}</span></td>
-				</tr>
-
-			</table>
-			<table class="inventory">
-				<thead>
-					<tr>
-						<th><span >Year</span></th>
-						<th><span >Month</span></th>
-						<th><span >Type</span></th>
-						<th><span >Area</span></th>
-						<th><span >Price</span></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><a class="cut">-</a><span >{{ $year }}</span></td>
-						<td><span >{{ $month }}</span></td>
-						<td><span data-prefix>$</span><span >{{ $maintenance_type }}</span></td>
-						<td><span >{{ $area }}</span></td>
-						<td><span data-prefix>$</span><span>{{ $total }}</span></td>
-					</tr>
-				</tbody>
-			</table>
-			<a class="add">+</a>
-			<table class="balance">
-				<tr>
-					<th><span >Total</span></th>
-					<td><span data-prefix>$</span><span>{{$total}}</span></td>
-				</tr>
-				<!-- <tr>
-					<th><span >Amount Paid</span></th>
-					<td><span data-prefix>$</span><span >0.00</span></td>
-				</tr>
-				<tr>
-					<th><span >Balance Due</span></th>
-					<td><span data-prefix>$</span><span>600.00</span></td>
-				</tr> -->
-			</table>
-		</article>
-		<aside>
-			<h1><span >Additional Notes</span></h1>
-			<div >
-				<p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-			</div>
-		</aside>
-    </body>
-</html>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td height="20"></td>
+  </tr>
+</table>

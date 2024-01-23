@@ -189,7 +189,7 @@ class Maintenance extends Component
             ->get();
                          
       }else{
-        $propertys = PropertyModel::select('id','area' , 'user_id')->get();
+        $propertys = PropertyModel::select('id','area' , 'user_id','flat_no','block_no','floor_no')->get();
 
             $this->validate([
                 'month' => 'required',
@@ -226,7 +226,7 @@ class Maintenance extends Component
                 'price'=>$this->price,
                 'type'=>$this->type,
                 'transaction_type'=>'DR',
-                'total_amount'=>$tot_cost,
+                'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
 
@@ -241,9 +241,12 @@ class Maintenance extends Component
                         'year' => $this->year,
                         'admin' => $created_by,
                         'current_date' => $mydate, 
-                        'area' => $property->area                     
+                        'area' => $property->area,
+                        'flat_no'=>$property->flat_no,
+                        'block_no'=>$property->block_no,
+                        'floor_no'=>$property->floor_no                     
                     ];
-                    
+                  
                     dispatch(new MaintenanceSendEmailJob($maintenanceMailData));
 
          }
@@ -270,7 +273,7 @@ class Maintenance extends Component
             $data = [
                 'price'=>$this->price,
                 'type'=>$this->type,
-                'total_amount'=>$tot_cost,
+                'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
             MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
