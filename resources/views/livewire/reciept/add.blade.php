@@ -62,10 +62,10 @@
             $maintenance = App\Models\MaintenanceUser::where('month','=',$this->month)
              ->where('year','=',$this->year)
              ->where('property_id','=',$this->property_id)
-             ->select('total_cost')
+             ->select('total_amount')
              ->first();
              if(!empty( $maintenance)){
-           $this->payable_amount = '₹'.' '.$maintenance->total_cost;
+           $this->payable_amount = '₹'.' '.$maintenance->total_amount;
        
              }else{
               $this->payable_amount = '';

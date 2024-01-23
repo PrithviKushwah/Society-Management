@@ -207,12 +207,7 @@
                         <strong>₹ {{ $remaining_amount }}</strong>
                       </td>
                     </tr>
-                    <tr>
-                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #b0b0b0; line-height: 22px; vertical-align: top; text-align:right; "><small>TAX</small></td>
-                      <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #b0b0b0; line-height: 22px; vertical-align: top; text-align:right; ">
-                        <small>₹ 72.40</small>
-                      </td>
-                    </tr>
+
                   </tbody>
                 </table>
                 <!-- /Table Total -->

@@ -225,7 +225,7 @@ class Maintenance extends Component
                 'price'=>$this->price,
                 'type'=>$this->type,
                 'transaction_type'=>'DR',
-                'total_cost'=>$tot_cost,
+                'total_amount'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
 
@@ -272,7 +272,7 @@ class Maintenance extends Component
             $data = [
                 'price'=>$this->price,
                 'type'=>$this->type,
-                'total_cost'=>$tot_cost,
+                'total_amount'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
             MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
