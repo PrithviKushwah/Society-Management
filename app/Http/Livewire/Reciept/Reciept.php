@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PropertyModel;
 use App\Jobs\RecieptSendMail;
+use Carbon;
 
 class Reciept extends Component
 
@@ -119,11 +120,41 @@ class Reciept extends Component
             $data['uuid'] = $uuid;
             $data['created_by'] = $created_by;
         }
-        $test = MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
+          $test = MaintenanceUser::updateOrCreate(['uuid' => $this->uuid], $data);
+
+        $properties = PropertyModel::where('id', $this->property_id)->first();
+        $maintenance_dr = MaintenanceUser::where('property_id', $this->property_id)
+            ->where('month' , $this->month)
+            ->where('year' , $this->year)
+            ->where('transaction_type' , 'DR')
+            ->first();
+
+        $maintenance_cr = MaintenanceUser::where('property_id', $this->property_id)
+            ->where('month' , $this->month)
+            ->where('year' , $this->year)
+            ->where('transaction_type' , 'CR')
+            ->first();
+
+        $remaining_amount = $maintenance_dr->total_amount - $maintenance_cr->total_amount ;
+
+        $mydate = Carbon\Carbon::now()->format('d-m-Y');
 
         $recieptMailData = [
-            'email' => 'kushwahprithvi78@yopmail.com',
-            'title' => 'Your Email Title',
+            'email' => $properties->user->email,
+            'user_name' => $properties->user->user_name,
+            'maintenance_type' => $maintenance_dr->type,
+            'remaining_amount' => $remaining_amount,
+            'total' => $maintenance_dr->total_amount,
+            'month' => $this->month,
+            'year' => $this->year,
+            'admin' => $created_by,
+            'current_date' => $mydate,
+            'area' => $properties->area,
+            'flat_no' => $properties->flat_no,
+            'block_no' => $properties->block_no,
+            'floor_no' => $properties->floor_no ,
+            'paid_amount' => $this->paid_amount,
+            'payment_method' => $maintenance_cr->payment_method  
         ];
 
         dispatch(new RecieptSendMail($recieptMailData));
