@@ -47,7 +47,7 @@
 
     <div class="invoice">
         <div class="invoice-header">
-            <h2>{{$title}} {{$email}}</h2>
+            <h2> {{$email}}</h2>
             <p>Invoice Date: January 17, 2024</p>
         </div>
 

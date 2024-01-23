@@ -41,14 +41,16 @@ class Reciept extends Component
     public function render()
 
     {
-        $invoices = DB::table('invoices')
-        ->join('users', 'invoices.created_for', '=', 'users.id')
-        ->join('admins', 'invoices.created_by', '=', 'admins.id')
-        ->select('invoices.*', 'users.user_name','users.area', 'admins.name')
+        $invoices = DB::table('maintenance')
+        ->join('properties', 'maintenance.property_id', '=', 'properties.id')
+        ->join('users', 'properties.user_id', '=', 'users.id')
+        ->select('maintenance.*', 'users.user_name', 'properties.area')
+        ->where('maintenance.transaction_type' , 'cr')
         ->where('users.user_name', 'like', '%' . $this->search_name . '%')
         ->where('month', 'like', '%' . $this->search_month . '%')
         ->where('year', 'like', '%' . $this->search_year . '%')
         ->paginate($this->perPage);
+        
         return view('livewire.reciept.reciept',
     [
         'invoices' => $invoices 

@@ -11,7 +11,6 @@ use Illuminate\Queue\SerializesModels;
 use App\Mail\MaintainanceMail;
 use Illuminate\Support\Facades\Mail;
 
-
 class MaintenanceSendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;

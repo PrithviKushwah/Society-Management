@@ -30,7 +30,7 @@ class MaintainanceMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Maintainance Mail',
+            subject: 'Maintainance Mail' . $this->maintenanceMailData['user_name'],
         );
     }
 
@@ -66,7 +66,6 @@ class MaintainanceMail extends Mailable
 
         return $this->view('email.maintenance.maintenanceMail' ,$this->maintenanceMailData )
         ->to($this->maintenanceMailData['email'])
-        ->subject($this->maintenanceMailData['title'])
         ->attachData($pdf->output(), 'text.pdf');
     }
 }

@@ -16,7 +16,7 @@ use App\Models\PropertyModel;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MaintainanceMail;
 use App\Jobs\MaintenanceSendEmailJob;
-
+use Carbon;
 
 
 class Maintenance extends Component
@@ -182,14 +182,14 @@ class Maintenance extends Component
                 'property_id' => 'required',
             ]);  
             $propertys = PropertyModel::where('id' , '=' , $this->property_id)
-            ->select('id','area')->get();
+            ->select('id','area' , 'user_id')->get();
             $maintenance = MaintenanceUser::where('month', '=', $this->month)
             ->where('year', '=', $this->year)
             ->where('property_id' , '=' , $this->property_id)
             ->get();
                          
       }else{
-        $propertys = PropertyModel::select('id','area')->get();
+        $propertys = PropertyModel::select('id','area' , 'user_id')->get();
 
             $this->validate([
                 'month' => 'required',
@@ -229,14 +229,21 @@ class Maintenance extends Component
                 'total_cost'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
-       
-            MaintenanceUser::Create($data);
 
-                    $maintenanceMailData = [ 
-                        'email' => 'kushwahprithvi78@yopmail.com',
-                        'title' => 'Your Email Title',
+                    // MaintenanceUser::Create($data);
+                    $mydate = Carbon\Carbon::now()->format('d-m-Y');
+                    $maintenanceMailData = [
+                        'email' => $property->user->email,
+                        'user_name' => $property->user->user_name,
+                        'maintenance_type' => $this->type,
+                        'total' => $tot_cost,
+                        'month' => $this->month,
+                        'year' => $this->year,
+                        'admin' => $created_by,
+                        'current_date' => $mydate, 
+                        'area' => $property->area                     
                     ];
-
+                    
                     dispatch(new MaintenanceSendEmailJob($maintenanceMailData));
 
          }
