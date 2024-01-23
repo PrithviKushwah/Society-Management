@@ -1,6 +1,6 @@
 <div class="container-fluid py-4">
   <div class="row">
-        <h3 class="text-start">User Form</h3>
+        <h3 class="text-start">USER</h3>
     <form class="form-custom" enctype="multipart/form-data">
       <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
     

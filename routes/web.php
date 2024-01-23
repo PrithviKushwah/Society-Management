@@ -62,8 +62,8 @@ Route::group(['middleware' => ['web', 'auth:admins' , 'admin']], function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');
     Route::get('profile', Profile::class)->name('profile');
     Route::get('users', UserDetail::class)->middleware('auth')->name('User Detail');
-    Route::get('admin-management', AdminManagement::class)->middleware('auth')->name('admin_management');
-    Route::get('maintenance', Maintenance::class)->middleware('auth')->name('bulk-maintenance');
+    Route::get('admin-management', AdminManagement::class)->middleware('auth')->name('Admin Management');
+    Route::get('maintenance', Maintenance::class)->middleware('auth')->name('maintenance');
     Route::get('maintenance_export', [Maintenance::class, 'export'])->middleware('auth')->name('maintenance_export');
     Route::get('reciept', Reciept::class)->middleware('auth')->name('reciept');
     Route::get('properties', Properties::class)->middleware('auth')->name('properties');

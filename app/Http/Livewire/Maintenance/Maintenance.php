@@ -181,8 +181,7 @@ class Maintenance extends Component
                 'type' => 'required',
                 'property_id' => 'required',
             ]);  
-            $propertys = PropertyModel::where('id' , '=' , $this->property_id)
-            ->select('id','area' , 'user_id')->get();
+            $propertys = PropertyModel::where('id' , '=' , $this->property_id)->get();
             $maintenance = MaintenanceUser::where('month', '=', $this->month)
             ->where('year', '=', $this->year)
             ->where('property_id' , '=' , $this->property_id)
@@ -197,9 +196,9 @@ class Maintenance extends Component
                 'price' => 'required',
                 'type' => 'required',
             ]);
-            $maintenance = MaintenanceUser::where('month', '=', $this->month)
-            ->where('year', '=', $this->year)
-            ->get();
+        $maintenance = MaintenanceUser::where('month', '=', $this->month)
+        ->where('year', '=', $this->year)
+        ->get();
         }
         $created_by = Auth::id();       
  

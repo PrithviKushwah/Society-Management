@@ -25,7 +25,7 @@
 
 
             <li class="nav-item">
-                <a class="px-0 nav-link text-white {{ Route::currentRouteName() == 'admin_management' ? ' active bg-gradient-primary' : '' }} " href="{{ route('admin_management') }}">
+                <a class="px-0 nav-link text-white {{ Route::currentRouteName() == 'Admin Management' ? ' active bg-gradient-primary' : '' }} " href="{{ route('Admin Management') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                     </div>
@@ -42,7 +42,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('bulk-maintenance') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'bulk-maintenance' ? ' active bg-gradient-primary' : '' }}">
+                <a href="{{ route('maintenance') }}" class="nav-link px-0 align-middle nav-link px-0 {{ Route::currentRouteName() == 'maintenance' ? ' active bg-gradient-primary' : '' }}">
                 <i style="font-size: 1rem;" class="fas fa-lg fa-book ps-2 pe-2 text-center"></i> 
                 <span class="nav-link-text ms-1">Maintenance</span> </a>
                 
