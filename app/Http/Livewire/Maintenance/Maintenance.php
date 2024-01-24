@@ -72,9 +72,10 @@ class Maintenance extends Component
         ->join('admins', 'maintenance.create_by', '=', 'admins.id')
         ->join('users', 'properties.user_id', '=', 'users.id')
         ->select('maintenance.*', 'properties.user_id' , 'properties.area' , 'users.user_name',  'admins.name')
-         ->where('users.user_name', 'like', '%' . $this->search_name . '%')
+        ->where('users.user_name', 'like', '%' . $this->search_name . '%')
         ->where('month', 'like', '%' . $this->search_month . '%')
         ->where('year', 'like', '%' . $this->search_year . '%')
+        ->where('maintenance.transaction_type','DR')
         ->paginate($this->perPage);
       
         // $maintenance_user = MaintenanceUser::where('create_for', 'like', '%' . $this->search_name . '%')
