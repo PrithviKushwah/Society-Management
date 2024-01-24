@@ -3,8 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Society Management Invoice</title>
-   
+    <title>Society Reciept Mail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .invoice {
+            width: 80%;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .invoice-table, .invoice-table th, .invoice-table td {
+            border: 1px solid #ddd;
+        }
+
+        .invoice-table th, .invoice-table td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .invoice-total {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -16,7 +53,6 @@
 				<table class="col-600" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
 					<tbody>
                         <tr>
-						<td align="center" valign="top" background="https://designmodo.com/demo/emailtemplate/images/header-background.jpg" bgcolor="#66809b" style="background-size:cover; background-position:top;height=" 400""="">
 							<table class="col-600" width="600" height="400" border="0" align="center" cellpadding="0" cellspacing="0">
 
 								<tbody><tr>
@@ -26,34 +62,24 @@
 
 								<tr>
 									<td align="center" style="line-height: 0px;">
-										<img style="display:block; line-height:0px; font-size:0px; border:0px;" src="https://designmodo.com/demo/emailtemplate/images/logo.png" width="109" height="103" alt="logo">
+										<img style="display:block; line-height:0px; font-size:0px; border:0px;" src="https://cloud1.me/img/Logo.png" width="109" height="103" alt="logo">
 									</td>
 								</tr>
-
-
-
 								<tr>
-									<td align="center" style="font-family: 'Raleway', sans-serif; font-size:37px; color:#ffffff; line-height:24px; font-weight: bold; letter-spacing: 7px;">
-										EMAIL <span style="font-family: 'Raleway', sans-serif; font-size:37px; color:#ffffff; line-height:39px; font-weight: 300; letter-spacing: 7px;">TEMPLATE</span>
+									<td align="center" style="font-family: 'Raleway', sans-serif; font-size:37px; color:#000000; line-height:24px; font-weight: bold; letter-spacing: 7px;">
+										EMAIL <span style="font-family: 'Raleway', sans-serif; font-size:37px; color:#000000; line-height:39px; font-weight: 300; letter-spacing: 7px;">TEMPLATE</span>
 									</td>
 								</tr>
-
-
-
-
-
 								<tr>
-									<td align="center" style="font-family: 'Lato', sans-serif; font-size:15px; color:#ffffff; line-height:24px; font-weight: 300;">
+									<td align="center" style="font-family: 'Lato', sans-serif; font-size:15px; color:#000000; line-height:24px; font-weight: 300;">
 										A creative email template for your email campaigns, promotions <br>and products across different email platforms.
 									</td>
 								</tr>
-
-
 								<tr>
 									<td height="50"></td>
 								</tr>
 							</tbody></table>
-						</td>
+						
 					</tr>
 				</tbody></table>
 			</td>
@@ -116,6 +142,5 @@
 <!-- END FOOTER -->
 				
 </tbody></table>
-
 </body>
 </html>

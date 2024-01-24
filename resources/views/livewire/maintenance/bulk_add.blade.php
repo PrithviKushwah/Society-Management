@@ -73,7 +73,7 @@
          
           <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-              <button wire:click.prevent="store()" type="button" class="btn bg-dark mb-0 text-white rounded-pill">
+              <button wire:click.prevent="bulkStore()" type="button" class="btn bg-dark mb-0 text-white rounded-pill">
                 Save
               </button>
             </span>
