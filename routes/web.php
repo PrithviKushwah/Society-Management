@@ -17,6 +17,7 @@ use App\Http\Livewire\Property\Properties;
 use App\Http\Livewire\EmailSetting\EmailSetting;
 use App\Http\Livewire\FlatManagement\FlatManagement;
 use App\Http\Livewire\MaintanenceHistory\MaintanenceHistory;
+use App\Http\Controllers\LangController;
 
 
 
@@ -37,6 +38,9 @@ use App\Http\Livewire\MaintanenceHistory\MaintanenceHistory;
 Route::get('/', function(){
     return redirect('sign-in');
 });
+
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+
 
 Route::get('forgot-password', ForgotPassword::class)->middleware('guest')->name('password.forgot');
 Route::get('reset-password/{id}', ResetPassword::class)->middleware('signed')->name('reset-password');

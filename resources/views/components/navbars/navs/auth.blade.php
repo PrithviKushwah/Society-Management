@@ -15,6 +15,7 @@
   </li>
 </ul>
 
+
       
       <button class="navbar-toggler text-white collapsed button-toggle-custom" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon">
@@ -25,7 +26,16 @@
     <div class="collapse navbar-collapse w-100 user-info" id="navbarSupportedContent">
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-end" style="column-gap: 10px;">
+        <li class="dropdown-item">
+                <div class="col-md-1 col-2 ms-auto text-center setting-main" class="setting-container">
+                  <select class="form-control changeLang">
+                      <option disabled>Select Language</option>
+                      <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
+                      <option value="hi" {{ session()->get('locale') == 'hi' ? 'selected' : '' }}>हिंदी</option>
+                  </select>
+                </div>
 
+            </li>
       <li class="nav-item dropdown  user-bg">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-user mx-0"></i>

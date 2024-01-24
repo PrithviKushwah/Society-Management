@@ -44,7 +44,7 @@
             <div class="mt-3">
             <div class="mb-4 col-sm-12 col-md-3">
 
-              <h6>LOGO :</h6>
+              <h6>LOGO : {{ __('messages.test') }}</h6>
               <input class="demo1" type="file" name="logo" value="drage and drop file here or select files" />
               @error('logo') <span class="text-danger">{{ $message }}</span>@enderror   
               @if($email->logo)

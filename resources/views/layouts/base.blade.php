@@ -13,7 +13,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <!DOCTYPE html>
-<html lang='en' dir="{{ Route::currentRouteName() == 'rtl' ? 'rtl' : '' }}">
+{{-- <html lang='en' dir="{{ Route::currentRouteName() == 'rtl' ? 'rtl' : '' }}"> --}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -169,7 +170,19 @@ $(document).ready(function() {
 
   });
 
+  <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+    <script type="text/javascript">
 
+  
+    var url = "{{ route('changeLang') }}";
+  
+    $(".changeLang").change(function(){
+        window.location.href = url + "?lang="+ $(this).val();
+    });
+    
+    </script>
 
 </script>
 
