@@ -70,6 +70,7 @@ Route::group(['middleware' => ['web', 'auth:admins' , 'admin']], function () {
     Route::get('properties', Properties::class)->middleware('auth')->name('properties');
     Route::get('property_export', [Maintenance::class, 'export'])->middleware('auth')->name('property_export');
     Route::get('email-setting', EmailSetting::class)->middleware('auth')->name('Email Setting');
+    Route::post('email-setting-store', [EmailSetting::class,'store'])->middleware('auth')->name('Email Setting Store');
 
 });
 

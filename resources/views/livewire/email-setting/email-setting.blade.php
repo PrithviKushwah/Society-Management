@@ -12,7 +12,7 @@
             
   <div class="row">
         <h3 class="text-start">EMAIL SETTING</h3>
-    <form class="form-custom" enctype="multipart/form-data">
+    <form class="form-custom" enctype="multipart/form-data" action="{{route('Email Setting Store')}}" method="POST">
       <div class="bg-white row">
       @if(isset($error_msg) && $error_msg!=null)
         <h6 class='text-danger'>{{$error_msg}}</h6> 
@@ -47,12 +47,19 @@
               @if(!is_object($logo)&& $logo!='')
               <a href="{{ asset('storage/logo/' . $logo) }}" download type="button" class="btn btn-success mb-0 text-white mt-3">Download</a>
               @endif
-</div>
+            </div>
           </div>
-         
+          <div class="col-sm-6 ">
+            <div class="form-group">
+              <label>FOOTER:</label>
+              <textarea wire:model="footer" type="textarea"  id="editor" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here"></textarea>
+              @error('footer') <span class="text-danger">{{ $message }}</span>@enderror
+            </div>
+          </div>
+          
           <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-              <button wire:click.prevent="store()" type="button" class="btn bg-dark mb-0 text-white rounded-pill">
+              <button  type="submit" class="btn bg-dark mb-0 text-white rounded-pill">
                 Save
               </button>
             </span>
@@ -64,3 +71,14 @@
     </form>
   </div>
 </div>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+<script>
+ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+                console.log( editor );
+        } )
+        .catch( error => {
+                console.error( error );
+        } );
+</script>

@@ -67,7 +67,7 @@
 								</tr>
 								<tr>
 									<td align="center" style="font-family: 'Raleway', sans-serif; font-size:37px; color:#000000; line-height:24px; font-weight: bold; letter-spacing: 7px;">
-										EMAIL <span style="font-family: 'Raleway', sans-serif; font-size:37px; color:#000000; line-height:39px; font-weight: 300; letter-spacing: 7px;">TEMPLATE</span>
+									<span style="font-family: 'Raleway', sans-serif; font-size:37px; color:#000000; line-height:39px; font-weight: 300; letter-spacing: 7px;">{{$company_name}}</span>
 									</td>
 								</tr>
 								<tr>
@@ -90,54 +90,7 @@
 
 <!-- START FOOTER -->
 
-		<tr>
-			<td align="center">
-				<table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" style=" border-left: 1px solid #dbd9d9; border-right: 1px solid #dbd9d9;">
-					<tbody><tr>
-						<td height="50"></td>
-					</tr>
-					<tr>
-						<td align="center" bgcolor="#34495e" background="https://designmodo.com/demo/emailtemplate/images/footer.jpg" height="185">
-							<table class="col-600" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tbody><tr>
-									<td height="25"></td>
-								</tr>
-
-									<tr>
-									<td align="center" style="font-family: 'Raleway',  sans-serif; font-size:26px; font-weight: 500; color:#f1c40f;">Follow us for some cool stuffs</td>
-									</tr>
-
-
-								<tr>
-									<td height="25"></td>
-								</tr>
-
-
-
-								</tbody></table><table align="center" width="35%" border="0" cellspacing="0" cellpadding="0">
-								<tbody><tr>
-									<td align="center" width="30%" style="vertical-align: top;">
-											<a href="https://www.facebook.com/designmodo" target="_blank"> <img src="https://designmodo.com/demo/emailtemplate/images/icon-fb.png"> </a>
-									</td>
-
-									<td align="center" class="margin" width="30%" style="vertical-align: top;">
-										 <a href="https://twitter.com/designmodo" target="_blank"> <img src="https://designmodo.com/demo/emailtemplate/images/icon-twitter.png"> </a>
-									</td>
-
-									<td align="center" width="30%" style="vertical-align: top;">
-											<a href="https://plus.google.com/+Designmodo/posts" target="_blank"> <img src="https://designmodo.com/demo/emailtemplate/images/icon-googleplus.png"> </a>
-									</td>
-								</tr>
-								</tbody></table>
-
-
-
-							</td></tr></tbody></table>
-						</td>
-					</tr>
-				</tbody></table>
-			</td>
-		</tr>
+{{$footer}}
 
 <!-- END FOOTER -->
 				

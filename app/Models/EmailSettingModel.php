@@ -14,6 +14,7 @@ class EmailSettingModel extends Model
         'logo',
         'company_name',
         'insta',
+        'footer',
         'whatsapp'
     ];
 }

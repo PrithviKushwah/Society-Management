@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('uuid')->nullable();
             $table->string('logo')->nullable();
             $table->string('company_name')->nullable();
+            $table->text('footer')->nullable();
             $table->string('insta')->nullable();
             $table->string('whatsapp')->nullable();
             $table->timestamps();

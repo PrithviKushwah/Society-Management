@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Maintenance;
 
 use Livewire\Component;
 use App\Models\MaintenanceUser;
+use App\Models\EmailSettingModel;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MaintainanceMail;
 use App\Jobs\MaintenanceSendEmailJob;
 use Carbon;
+
 
 
 class Maintenance extends Component
@@ -50,7 +52,8 @@ class Maintenance extends Component
     $edit,
     $type = 'PRICE BY AREA',
     $properties,
-    $created_by;
+    $created_by,
+    $emailSettingData;
        
     public $isOpen = 0, $isView = 0 , $isBulkOpen = 0 , $isUserOpen = 0;
  
@@ -58,6 +61,8 @@ class Maintenance extends Component
         
         $this->properties = PropertyModel::select('id', 'user_id')->get();
         $this->created_by = Auth::id();
+        $this->emailSettingData = EmailSettingModel::first();
+        
 
     }
     public function render()
@@ -176,7 +181,7 @@ class Maintenance extends Component
 
     {
         
-    
+     
             $this->validate([
                 'month' => 'required',
                 'year' => 'required',
@@ -216,7 +221,7 @@ class Maintenance extends Component
                 'total_amount'=>$tot_cost,
                 'comment'=>$this->comment,
             ];
-
+             
                     MaintenanceUser::Create($data);
                     $mydate = Carbon\Carbon::now()->format('d-m-Y');
                     $maintenanceMailData = [
@@ -231,7 +236,13 @@ class Maintenance extends Component
                         'area' => $property->area,
                         'flat_no'=>$property->flat_no,
                         'block_no'=>$property->block_no,
-                        'floor_no'=>$property->floor_no                     
+                        'floor_no'=>$property->floor_no  ,
+                        'company_name'=>$this->emailSettingData->company_name,
+                        'insta'=>$this->emailSettingData->insta,
+                        'whatsapp'=>$this->emailSettingData->whatsapp,
+                        'logo'=>$this->emailSettingData->logo,
+                        'footer'=>$this->emailSettingData->footer,
+                       
                     ];
                   
                     dispatch(new MaintenanceSendEmailJob($maintenanceMailData));
@@ -278,6 +289,8 @@ class Maintenance extends Component
 
     public function bulkStore()
     {
+        
+        
         // Retrieve all properties
         $properties = PropertyModel::all();
 
@@ -320,7 +333,7 @@ class Maintenance extends Component
                 ];
 
                 // Create maintenance record
-                MaintenanceUser::create($data);
+                // MaintenanceUser::create($data);
 
                 // Get current date in the 'd-m-Y' format
                 $mydate = Carbon\Carbon::now()->format('d-m-Y');
@@ -339,8 +352,15 @@ class Maintenance extends Component
                     'flat_no' => $property->flat_no,
                     'block_no' => $property->block_no,
                     'floor_no' => $property->floor_no,
-                ];
+                    'company_name'=>$this->emailSettingData->company_name,
+                    'insta'=>$this->emailSettingData->insta,
+                    'whatsapp'=>$this->emailSettingData->whatsapp,
+                    'logo'=>$this->emailSettingData->logo,
+                    'footer'=>$this->emailSettingData->footer,
 
+                ];
+                
+// dd($maintenanceMailData);
                 // Dispatch a job to send maintenance email asynchronously
                 dispatch(new MaintenanceSendEmailJob($maintenanceMailData));
 

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MaintainanceMail;
 use App\Jobs\MaintenanceSendEmailJob;
 use Carbon;
+use Illuminate\Http\Request;
 
 class EmailSetting extends Component
 {
@@ -27,6 +28,7 @@ class EmailSetting extends Component
     public $whatsapp = '';
     public $company_name = '';
     public $uuid = '';
+    public $footer = '';
     use WithFileUploads;
 
    
@@ -40,8 +42,9 @@ class EmailSetting extends Component
     }
 
    
-    public function store()
+    public function store(Request $request)
     {
+        dd($request);
          $this->validate([            
                'company_name' => 'required',
         ]);
@@ -50,7 +53,8 @@ class EmailSetting extends Component
         $data = [
             'company_name' => $this->company_name,
             'whatsapp' => $this->whatsapp,
-            'insta' => $this->insta,           
+            'insta' => $this->insta, 
+            'footer'=>$this->footer          
         ];
         if (empty($this->uuid)) {
             $uuid = (string) Str::uuid();
@@ -64,7 +68,7 @@ class EmailSetting extends Component
             $data['logo'] = $filename;
         }
        
-        
+      
         EmailSettingModel::updateOrCreate(['uuid' => $this->uuid], $data);
         session()->flash(
             'message',
