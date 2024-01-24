@@ -49,13 +49,16 @@ class Maintenance extends Component
     $single,
     $edit,
     $type = 'PRICE BY AREA',
-    $properties;
+    $properties,
+    $created_by;
        
     public $isOpen = 0, $isView = 0 , $isBulkOpen = 0 , $isUserOpen = 0;
  
     public function mount(){
         
         $this->properties = PropertyModel::select('id', 'user_id')->get();
+        $this->created_by = Auth::id();
+
     }
     public function render()
     {
@@ -173,40 +176,25 @@ class Maintenance extends Component
 
     {
         
-      if($this->property_id != null || $this->single != null){
+    
             $this->validate([
                 'month' => 'required',
                 'year' => 'required',
                 'price' => 'required',
                 'type' => 'required',
                 'property_id' => 'required',
-            ]);  
-            $propertys = PropertyModel::where('id' , '=' , $this->property_id)->get();
+            ]);
+
+        $property = PropertyModel::where('id' , '=' , $this->property_id)->first();
             $maintenance = MaintenanceUser::where('month', '=', $this->month)
             ->where('year', '=', $this->year)
             ->where('property_id' , '=' , $this->property_id)
             ->get();
-                         
-      }else{
-        $propertys = PropertyModel::select('id','area' , 'user_id','flat_no','block_no','floor_no')->get();
-
-            $this->validate([
-                'month' => 'required',
-                'year' => 'required',
-                'price' => 'required',
-                'type' => 'required',
-            ]);
-        $maintenance = MaintenanceUser::where('month', '=', $this->month)
-        ->where('year', '=', $this->year)
-        ->get();
-        }
-        $created_by = Auth::id();       
  
         if ($this->uuid == null) {        
      
         if($maintenance->isEmpty()){
            
-        foreach($propertys as $property){
          
             $uuid = (string) Str::uuid();
             if($this->type == 'FIX PRICE'){
@@ -220,7 +208,7 @@ class Maintenance extends Component
                 'uuid' =>$uuid ,
                 'month' => $this->month,
                 'year' => $this->year,
-                'create_by' => $created_by,
+                'create_by' => $this->created_by,
                 'property_id' => $property->id,
                 'price'=>$this->price,
                 'type'=>$this->type,
@@ -238,7 +226,7 @@ class Maintenance extends Component
                         'total' => $tot_cost,
                         'month' => $this->month,
                         'year' => $this->year,
-                        'admin' => $created_by,
+                        'admin' => $this->created_by,
                         'current_date' => $mydate, 
                         'area' => $property->area,
                         'flat_no'=>$property->flat_no,
@@ -248,7 +236,7 @@ class Maintenance extends Component
                   
                     dispatch(new MaintenanceSendEmailJob($maintenanceMailData));
 
-         }
+         
         
                session()->flash(
                 'message',
@@ -287,6 +275,97 @@ class Maintenance extends Component
 
         
     }
+
+    public function bulkStore()
+    {
+        // Retrieve all properties
+        $properties = PropertyModel::all();
+
+        // Validate input data
+        $this->validate([
+            'month' => 'required',
+            'year' => 'required',
+            'price' => 'required',
+            'type' => 'required',
+        ]);
+
+        $maintenanceCreated = false; // Flag to check if any maintenance records were created
+
+        foreach ($properties as $property) {
+            // Check if maintenance record already exists for the given month, year, and property
+            $maintenance = MaintenanceUser::where('month', '=', $this->month)
+                ->where('year', '=', $this->year)
+                ->where('property_id', '=', $property->id)
+                ->first();
+
+            if (!$maintenance) {
+                // Generate a UUID for the maintenance record
+                $uuid = (string) Str::uuid();
+
+                // Calculate total cost based on maintenance type
+                $tot_cost = ($this->type == 'FIX PRICE') ? $this->price : ($this->price * $property->area);
+
+                // Prepare data for maintenance record
+                $data = [
+                    'uuid' => $uuid,
+                    'month' => $this->month,
+                    'year' => $this->year,
+                    'create_by' => $this->created_by,
+                    'property_id' => $property->id,
+                    'price' => $this->price,
+                    'type' => $this->type,
+                    'transaction_type' => 'DR',
+                    'total_amount' => $tot_cost,
+                    'comment' => $this->comment,
+                ];
+
+                // Create maintenance record
+                MaintenanceUser::create($data);
+
+                // Get current date in the 'd-m-Y' format
+                $mydate = Carbon\Carbon::now()->format('d-m-Y');
+
+                // Prepare data for maintenance email
+                $maintenanceMailData = [
+                    'email' => $property->user->email,
+                    'user_name' => $property->user->user_name,
+                    'maintenance_type' => $this->type,
+                    'total' => $tot_cost,
+                    'month' => $this->month,
+                    'year' => $this->year,
+                    'admin' => $this->created_by,
+                    'current_date' => $mydate,
+                    'area' => $property->area,
+                    'flat_no' => $property->flat_no,
+                    'block_no' => $property->block_no,
+                    'floor_no' => $property->floor_no,
+                ];
+
+                // Dispatch a job to send maintenance email asynchronously
+                dispatch(new MaintenanceSendEmailJob($maintenanceMailData));
+
+                // Set the flag to true if maintenance record is created
+                $maintenanceCreated = true;
+            }
+        }
+
+        // Display a message based on whether any maintenance records were created
+        if ($maintenanceCreated) {
+            session()->flash(
+                'message',
+                $this->uuid ? 'Maintenance Updated Successfully.' : 'Maintenance Created Successfully.'
+            );
+        } else {
+            session()->flash('delete', 'Maintanence Aready Exist for this Month , Year All User');
+        }
+
+        // Close the modal and reset input fields
+        $this->closeModal();
+        $this->resetInputFields();
+    }
+
+
+
 
     /**
      * The attributes that are mass assignable.

@@ -188,7 +188,7 @@
                         Total
                       </td>
                       <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;" width="80">
-					            ₹ {{$total}}
+					             {{$total}}
                       </td>
                     </tr>
                     <tr>
@@ -196,7 +196,7 @@
                         Paid Amount
                       </td>
                       <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                        ₹ {{ $paid_amount }}
+                         {{ $paid_amount }}
                       </td>
                     </tr>
                     <tr>
@@ -204,7 +204,7 @@
                         <strong>Remaining Total</strong>
                       </td>
                       <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
-                        <strong>₹ {{ $remaining_amount }}</strong>
+                        <strong> {{ $remaining_amount }}</strong>
                       </td>
                     </tr>
 

@@ -40,7 +40,9 @@
                     <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
                       <tbody>
                         <tr>
-                          <td align="left"> <img  src="../../../../public/assets/img/LogoCloud1.png" width="100" height="52" alt="logo" border="0" /></td>
+                          <td align="left"> 
+                                  <img src="assets/img/LogoCloud1.png" width="100" height="52" alt="logo" border="0" />
+                          </td>
                         </tr>
                         <tr class="hiddenMobile">
                           <td height="40"></td>
@@ -192,7 +194,7 @@
                         Total
                       </td>
                       <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;" width="80">
-					            ₹ {{$total}}
+					             {{$total}}
                       </td>
                     </tr>
                   </tbody>
