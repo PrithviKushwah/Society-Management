@@ -14,6 +14,7 @@ use App\Http\Livewire\Maintenance\Maintenance;
 use App\Http\Controllers\EmailController;
 use App\Http\Livewire\Reciept\Reciept;
 use App\Http\Livewire\Property\Properties;
+use App\Http\Livewire\EmailSetting\EmailSetting;
 use App\Http\Livewire\FlatManagement\FlatManagement;
 use App\Http\Livewire\MaintanenceHistory\MaintanenceHistory;
 
@@ -68,6 +69,7 @@ Route::group(['middleware' => ['web', 'auth:admins' , 'admin']], function () {
     Route::get('reciept', Reciept::class)->middleware('auth')->name('reciept');
     Route::get('properties', Properties::class)->middleware('auth')->name('properties');
     Route::get('property_export', [Maintenance::class, 'export'])->middleware('auth')->name('property_export');
+    Route::get('email-setting', EmailSetting::class)->middleware('auth')->name('Email Setting');
 
 });
 
