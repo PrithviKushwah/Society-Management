@@ -62,7 +62,7 @@
 
 								<tr>
 									<td align="center" style="line-height: 0px;">
-										<img style="display:block; line-height:0px; font-size:0px; border:0px;" src="https://cloud1.me/img/Logo.png" width="109" height="103" alt="logo">
+										<img style="display:block; line-height:0px; font-size:0px; border:0px;" src="{{ asset('storage/logo/' . $logo) }}" width="109" height="103" alt="logo">
 									</td>
 								</tr>
 								<tr>
@@ -90,7 +90,7 @@
 
 <!-- START FOOTER -->
 
-{{$footer}}
+{!! $footer !!}
 
 <!-- END FOOTER -->
 				

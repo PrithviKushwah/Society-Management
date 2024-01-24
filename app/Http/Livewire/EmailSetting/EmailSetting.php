@@ -34,8 +34,12 @@ class EmailSetting extends Component
    
     public function render()
     {
+        $email = EmailSettingModel::first();
        return view(
             'livewire.email-setting.email-setting',
+            [
+                'email'=> $email,
+            ]
             
         );
 
@@ -44,75 +48,52 @@ class EmailSetting extends Component
    
     public function store(Request $request)
     {
-        dd($request);
-         $this->validate([            
+     
+         $request->validate([            
                'company_name' => 'required',
         ]);
-       
-        
-        $data = [
-            'company_name' => $this->company_name,
-            'whatsapp' => $this->whatsapp,
-            'insta' => $this->insta, 
-            'footer'=>$this->footer          
-        ];
-        if (empty($this->uuid)) {
-            $uuid = (string) Str::uuid();
-            $this->uuid = $uuid;
-            $data['uuid'] = $uuid;
-        }
-        
-        if (is_object($this->logo)) {
-            $logo = $this->logo->store('public/logo');
-            $filename = basename($logo);
-            $data['logo'] = $filename;
-        }
-       
-      
-        EmailSettingModel::updateOrCreate(['uuid' => $this->uuid], $data);
-        session()->flash(
-            'message',
-            $this->uuid ? 'Property Updated Successfully.' : 'Property Created Successfully.'
-        );
+        $email = EmailSettingModel::where('uuid', $request->uuid)->first();
 
-       
-
-         
+        if (!$email) {
+            // Handle case when the record with the given uuid is not found
+            return redirect()->back()->with('error', 'Email settings not found.');
+        }
+            $email->company_name =  $request->company_name;
+            $email->whatsapp =  $request->whatsapp;
+            $email->insta =  $request->insta; 
+            $email->footer = $request->footer;
+            if (is_object($request->logo)) {
+                $logo = $request->logo->store('public/logo');
+                $filename = basename($logo);
+                $email->logo = $filename;
+            }
+            $email->save();
+        return redirect()->route('Email Setting')->with('message', 'Email settings updated successfully');
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public function edit($uuid, $view)
-    {
-        $this->resetInputFields();
-        $maintenance = MaintenanceUser::where('uuid', $uuid)->first();
-        if ($maintenance) {
-            $this->uuid = $maintenance->uuid;
-            $this->type = $maintenance->type;
-            $this->price = $maintenance->price;
-            $this->comment = $maintenance->comment;
-            $this->year = $maintenance->year;
-            $this->month = $maintenance->month;
-            $this->property_id = $maintenance->property_id;
-            $this->edit = 'edit';
-            if ($view == 'edit')
-            $this->openModal();
-            else
-                $this->openView();
-        }
-    }
-
-    public function userView($create_for)
-    {        
-        $user_details = User::where('id', $create_for)->first();
-        $this->user_detail = $user_details;
-        $this->openUserView();
-    }
-    
-
-
+    // /**
+    //  * The attributes that are mass assignable.
+    //  *
+    //  * @var array
+    //  */
+    // public function edit($uuid, $view)
+    // {
+    //     $this->resetInputFields();
+    //     $maintenance = MaintenanceUser::where('uuid', $uuid)->first();
+    //     if ($maintenance) {
+    //         $this->uuid = $maintenance->uuid;
+    //         $this->type = $maintenance->type;
+    //         $this->price = $maintenance->price;
+    //         $this->comment = $maintenance->comment;
+    //         $this->year = $maintenance->year;
+    //         $this->month = $maintenance->month;
+    //         $this->property_id = $maintenance->property_id;
+    //         $this->edit = 'edit';
+    //         if ($view == 'edit')
+    //         $this->openModal();
+    //         else
+    //             $this->openView();
+    //     }
+    // }
     
 }

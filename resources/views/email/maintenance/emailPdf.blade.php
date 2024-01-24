@@ -41,7 +41,7 @@
                       <tbody>
                         <tr>
                           <td align="left"> 
-                                  <img src="assets/img/LogoCloud1.png" width="100" height="52" alt="logo" border="0" />
+                                  <img src="{{ asset('storage/logo/' . $logo) }}" width="100" height="52" alt="logo" border="0" />
                           </td>
                         </tr>
                         <tr class="hiddenMobile">

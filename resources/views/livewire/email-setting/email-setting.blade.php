@@ -12,7 +12,9 @@
             
   <div class="row">
         <h3 class="text-start">EMAIL SETTING</h3>
-    <form class="form-custom" enctype="multipart/form-data" action="{{route('Email Setting Store')}}" method="POST">
+    <form class="form-custom" enctype="multipart/form-data" action="{{route('EmailSettingStore')}}" method="POST">
+    @csrf
+    <input type="hidden" value="{{ $email->uuid }}" name="uuid"> 
       <div class="bg-white row">
       @if(isset($error_msg) && $error_msg!=null)
         <h6 class='text-danger'>{{$error_msg}}</h6> 
@@ -21,38 +23,41 @@
           <div class="col-sm-3 ">
               <div class="form-group">
                 <label>COMPANY NAME:</label>
-                <input wire:model="company_name" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
+                <input name="company_name" value="{{ $email->company_name }}" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
                 @error('company_name') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
             <div class="col-sm-3 ">
               <div class="form-group">
                 <label>INSTA ID:</label>
-                <input wire:model="insta" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
+                <input name="insta" value="{{ $email->insta }}" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
                 @error('insta') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
             <div class="col-sm-3 ">
               <div class="form-group">
                 <label>WHATS APP:</label>
-                <input wire:model="whatsapp" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
+                <input name="whatsapp" value="{{ $email->whatsapp }}" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
                 @error('whatsapp') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
             <div class="mt-3">
             <div class="mb-4 col-sm-12 col-md-3">
+
               <h6>LOGO :</h6>
-              <input class="demo1" type="file" wire:model="logo" value="drage and drop file here or select files" />
-              @error('logo') <span class="text-danger">{{ $message }}</span>@enderror
-              @if(!is_object($logo)&& $logo!='')
-              <a href="{{ asset('storage/logo/' . $logo) }}" download type="button" class="btn btn-success mb-0 text-white mt-3">Download</a>
-              @endif
+              <input class="demo1" type="file" name="logo" value="drage and drop file here or select files" />
+              @error('logo') <span class="text-danger">{{ $message }}</span>@enderror   
+              @if($email->logo)
+              <img src="{{ asset('storage/logo/' . $email->logo) }}" alt="" height="100" >
+              @endif          
             </div>
           </div>
           <div class="col-sm-6 ">
             <div class="form-group">
               <label>FOOTER:</label>
-              <textarea wire:model="footer" type="textarea"  id="editor" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here"></textarea>
+              <textarea name="footer" type="textarea"  id="editor" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
+                {{ $email->footer }}
+              </textarea>
               @error('footer') <span class="text-danger">{{ $message }}</span>@enderror
             </div>
           </div>
