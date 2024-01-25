@@ -50,10 +50,7 @@ class FlatManagement extends Component
  
     public function render()
     { 
-        // $users = User::where('owner_id', $this->user_check['id'])
-        //     ->where('flat_status', '!=', '0')
-        //     ->where('user_name', 'like', '%' . $this->search_name . '%')
-        // ->paginate($this->perPage);
+       
 
         $users = DB::table('users')
         ->join('properties', 'users.asign_property_id', '=', 'properties.id')
@@ -147,8 +144,8 @@ class FlatManagement extends Component
                 'name' => 'required',
                 'password' => 'required',
                 'phone' => 'required',
-                'adhar' => 'required',
-                'profile_picture' => 'required',
+                // 'adhar' => 'required',
+                // 'profile_picture' => 'required',
                 'property_id' => 'required',
             ]);
 

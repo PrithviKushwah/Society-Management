@@ -18,6 +18,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Add this in your HTML head section -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets') }}/img/apple-icon.png">
     <link rel="icon" type="image/png" href="{{ asset('assets') }}/img/favicon.png">
     <title>
@@ -175,11 +178,50 @@ $(document).ready(function() {
     crossorigin="anonymous"></script>
     <script type="text/javascript">
 
-  
+
     var url = "{{ route('changeLang') }}";
   
     $(".changeLang").change(function(){
         window.location.href = url + "?lang="+ $(this).val();
+    });
+
+     var propertyId = $('.propertyId').val();
+
+       $.ajax({
+      //       type: 'POST',
+      //       url: '/update-session', 
+      //       data: {
+      //           property_data: propertyId,
+      //           '_token': $('meta[name="csrf-token"]').attr('content')
+      //       },
+      //       success: function(response) {
+              
+
+      //       },
+      //       error: function(error) {
+      //           console.log(error);
+      //       }
+        });
+
+     $(".property").change(function(){
+        var property_data = $(this).val();
+
+        $.ajax({
+        type: 'POST',
+        url: '/update-session', // Adjust the URL based on your routes
+        data: {
+            property_data: property_data,
+            '_token': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            // console.log(response);
+                window.location.reload();
+
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
     });
     
     </script>

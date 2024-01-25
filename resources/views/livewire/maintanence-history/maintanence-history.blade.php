@@ -29,9 +29,9 @@
                 </div>
                 <div class="me-3 my-3 text-start">
 
-            <div class="d-flex justify-content-end">
+            {{-- <div class="d-flex justify-content-end">
                     <div class="text-end mx-2"><button wire:click="create()" class="btn bg-dark mb-0 my-auto rounded-pill text-white">Create Invoice</button></div>
-            </div>
+            </div> --}}
                     
 
                 </div>
@@ -41,7 +41,7 @@
                         <div class="table-responsive pt-5 ">
                             <div id="order-listing_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                                 <div class="row align-items-center mb-2 row-filter-d">
-                                    <div class="col-md-3 col-12">
+                                    {{-- <div class="col-md-3 col-12">
                                         <div class="dropdown">
 
                                             <div class="filter-by input-group input-group-outline ">
@@ -52,11 +52,10 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
                           
-                             <div class="col-md-3 col-12 ">
-             
-                            
+                             <div class="col-md-4 col-12 ">
+
                                 <select wire:model="search_year"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <option value="" @disabled(false)>Filter By Year</option>
                                 
@@ -64,12 +63,9 @@
                                     <option value="{{ $year }}">{{ $year }}</option>
                                 @endforeach
                                 </select>
-                               
-             
-                          
 
                               </div>
-                              <div class="col-md-3 col-12 ">
+                              <div class="col-md-4 col-12 ">
               
                 
                                     <select wire:model="search_month"    class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
@@ -111,29 +107,38 @@
                                                 <tr class="bg-dark">
                                                     <th class="text-uppercase text-xxs font-weight-bolder">S. No.</th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder ps-2">
-                                                        ADMIN NAME</th>
+                                                        YEAR</th>
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                        USERNAME
+                                                        MONTH
                                                     </th>
                                                     
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
                                                     PAYMENT METHOD</th>
                                                        
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    PAID AMOUNT</th>
+                                                    PAID AMOUNT</th>   
+
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    REMAINING AMOUNT</th>
+                                                        transaction type</th>
+
                                                     <th class="text-uppercase text-xxs font-weight-bolder">
-                                                    PAYMENT DATE</th>
+                                                        COMMENT</th> 
+                                                        
+                                                    <th class="text-uppercase text-xxs font-weight-bolder">
+                                                    PAYMENT DATE & time</th>
                                                     
-                                                    <th class="text-uppercase text-xxs font-weight-bolder">
-                                                        COMMENT</th>
                                              </tr>
                                             </thead>
                                             <tbody>
+                                               
                                                 <tr>
                                                     @if ($maintenance_history->count())
+                                                    
+                                                        @if (isset($remaining_amount))                                                                
+                                                           <h6 class="mb-0 text-sm">{{$remaining_amount }}</h6> 
+                                                           @endif
                                                     @foreach ($maintenance_history as $key => $invoice)
+                                                     
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <div class="d-flex flex-column justify-content-center">
@@ -143,11 +148,44 @@
                                                     </td>
                                                     <td>
                                                         <div class="text-center justify-content-center">
-                                                           <h6 class="mb-0 text-sm">{{ $invoice->user_name }}</h6> 
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->year }}</h6> 
 
                                                         </div>
                                                     </td>
-                                                   
+                                                                                                       <td>
+                                                        <div class="text-center justify-content-center">
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->month }}</h6> 
+
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center justify-content-center">
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->payment_method }}</h6> 
+
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center justify-content-center">
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->total_amount }}</h6> 
+                                                        </div>
+                                                    </td>                                                    
+
+                                                    <td>
+                                                        <div class="text-center justify-content-center">
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->transaction_type }}</h6> 
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center justify-content-center">
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->comment }}</h6> 
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center justify-content-center">
+                                                           <h6 class="mb-0 text-sm">{{ $invoice->created_at }}</h6> 
+                                                        </div>
+                                                    </td>
+
                                                 </tr>
                                                 @endforeach
                                                 @else
@@ -164,8 +202,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
+                </div>                            
             </div>
         </div>
     </div>

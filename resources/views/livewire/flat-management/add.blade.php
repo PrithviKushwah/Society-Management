@@ -78,19 +78,16 @@
           <div class="mt-3">
                  
             <div class="mb-4 col-sm-12 col-md-3">
-              <h6>Aadhar Card :</h6>
+              <h6>Aadhar Card(Optional) :</h6>
               <input class="demo1" type="file" wire:model="adhar" value="drage and drop file here or select files" />
               @error('adhar') <span class="text-danger">{{ $message }}</span>@enderror
               @if(!is_object($adhar)&& $adhar!='')
               <a href="{{ asset('storage/adhar/' . $adhar) }}" download type="button" class="btn btn-success mb-0 text-white mt-3">Download</a>
               @endif
             </div>
-
-
-
             <div class="mt-3">  
             <div class="mb-4 col-sm-12 col-md-3">
-              <h6>Profile-Picture:</h6>
+              <h6>Profile-Picture(Optional):</h6>
               <input class="demo1" type="file" wire:model="profile_picture" value="drage and drop file here or select files" />
               @error('profile_picture') <span class="text-danger">{{ $message }}</span>@enderror
               @if(!is_object($profile_picture)&& $profile_picture!='')

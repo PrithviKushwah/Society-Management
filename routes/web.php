@@ -40,6 +40,8 @@ Route::get('/', function(){
 });
 
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+Route::post('/update-session', [LangController::class, 'updateSession'])->name('updateSession');
+
 
 
 Route::get('forgot-password', ForgotPassword::class)->middleware('guest')->name('password.forgot');

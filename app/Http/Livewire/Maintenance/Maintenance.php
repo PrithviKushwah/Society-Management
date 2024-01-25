@@ -334,7 +334,7 @@ class Maintenance extends Component
                 ];
 
                 // Create maintenance record
-                // MaintenanceUser::create($data);
+                MaintenanceUser::create($data);
 
                 // Get current date in the 'd-m-Y' format
                 $mydate = Carbon\Carbon::now()->format('d-m-Y');

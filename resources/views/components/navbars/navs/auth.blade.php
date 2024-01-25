@@ -3,16 +3,47 @@
 
   <div class="container-fluid d-flex w-100">
 <?php 
+use Illuminate\Support\Facades\Session;
   $user = auth()->user();   
+  $properties = App\Models\PropertyModel::where('user_id' , $user['id'])->get();
+  $property_data =  Session::get('property_data');
+  if ($property_data == null) {
+     $propertydata = App\Models\PropertyModel::where('user_id' , $user['id'])->first();
+      Session::put('property_data', $propertydata->id);
+  }
+
 ?>
 
-<ul class="navbar-nav w-40">
+<ul class="navbar-nav w-80">
   <li class="nav-item nav-profile">
     <a class="nav-link text-white px-0" href="#" data-bs-toggle="dropdown">
       <img src="assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="profile">
       <span class="nav-profile-name">{{ isset($user['user_name']) ? $user['user_name'] : $user['name'] }}</span>
     </a>
   </li>
+   <li class="nav-item nav-profile mx-4 mt-3">
+                  <select class=" changeLang">
+                      <option disabled>Select Language</option>
+                      <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
+                      <option value="hi" {{ session()->get('locale') == 'hi' ? 'selected' : '' }}>हिंदी</option>
+                  </select>
+
+    </li>
+    @if (isset($user['user_name']))
+       <li class="nav-item nav-profile mx-4 mt-3">
+                  <select class="property">
+                      <option value="">Select Property</option>
+                      @foreach ($properties as $property )
+                          <option class="propertyId" value="{{$property->id }}" {{ isset($property_data) && $property_data == $property->id ? 'selected' : '' }}>
+                            {{ $property->user->user_name }} Block {{ $property->block_no }}, Floor No {{ $property->floor_no }}, Flat No {{ $property->flat_no}}
+                          </option>
+
+                      @endforeach
+                  </select>
+
+    </li> 
+    @endif
+
 </ul>
 
 
@@ -23,19 +54,10 @@
       </span>
     </button>
     
-    <div class="collapse navbar-collapse w-100 user-info" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse w-20 user-info" id="navbarSupportedContent">
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-end" style="column-gap: 10px;">
-        <li class="dropdown-item">
-                <div class="col-md-1 col-2 ms-auto text-center setting-main" class="setting-container">
-                  <select class="form-control changeLang">
-                      <option disabled>Select Language</option>
-                      <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
-                      <option value="hi" {{ session()->get('locale') == 'hi' ? 'selected' : '' }}>हिंदी</option>
-                  </select>
-                </div>
-
-            </li>
+       
       <li class="nav-item dropdown  user-bg">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-user mx-0"></i>

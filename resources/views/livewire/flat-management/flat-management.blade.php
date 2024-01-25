@@ -151,13 +151,17 @@
                                                             {{ $user->phone }}
                                                         </p>
                                                     </td>
-                                                    <td class="align-middle text-center">                                                        
+                                                    <td class="align-middle text-center"> 
+                                                        @if ($user->adhar)                                                       
                                                     <a href="{{ asset('storage/adhar/' . $user->adhar) }}" download>Download Adhar
-                                                </a>
+                                                    </a>
+                                                    @endif
                                                         </td>
                                                        
-                                                        <td class="align-middle text-center">                                                        
+                                                        <td class="align-middle text-center"> 
+                                                           @if ($user->profile_picture)                                   
                                                           <img width='80' src="{{ asset('storage/profile_picture/' . $user->profile_picture) }}" alt="alt">                                                    
+                                                        @endif                     
                                                         </td>    
                                                         
                                                     <td class="align-middle text-center text-sm">                                                        

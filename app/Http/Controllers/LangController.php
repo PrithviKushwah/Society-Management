@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use Illuminate\Support\Facades\Session;
+
 
 class LangController extends Controller
 {
@@ -19,4 +21,15 @@ class LangController extends Controller
 
         return redirect()->back();
     }
+
+
+    public function updateSession(Request $request)
+    {
+        $property_data = $request->input('property_data');
+        Session::put('property_data', $property_data);
+         
+        return response()->json([
+            'message' => 'Session variable updated successfully']);
+    }
+
 }
