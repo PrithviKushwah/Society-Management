@@ -172,12 +172,12 @@ class Reciept extends Component
         $maintenance = MaintenanceUser::where('uuid', $uuid)->first();
         if ($maintenance) {
             $this->uuid = $maintenance->uuid;
-            $this->type = $maintenance->type;
-            $this->price = $maintenance->price;
+            $this->property_id = $maintenance->property_id;
+            $this->payment_method = $maintenance->payment_method;
             $this->comment = $maintenance->comment;
             $this->year = $maintenance->year;
             $this->month = $maintenance->month;
-            $this->create_for = $maintenance->create_for;
+            $this->paid_amount = $maintenance->total_amount;
             $this->edit = 'edit';
             if ($view == 'edit')
             $this->openModal();

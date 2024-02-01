@@ -25,7 +25,7 @@ class Login extends Component
 
     public function mount() {
       
-        $this->fill(['email' => 'admin@material.com', 'password' => 'secret']);    
+        $this->fill(['email' => '', 'password' => '']);    
     }
     
     public function store()
@@ -41,7 +41,11 @@ class Login extends Component
         if (Auth::attempt($attributes)) {
             // Regular user login successful
             session()->regenerate();
-            return redirect('/sub-user');
+            if(auth()->user()->owner_id != '0'){
+                return redirect('/maintanence-history');
+            }else {                
+                return redirect('/sub-user');
+            }
         }
 
         throw ValidationException::withMessages([

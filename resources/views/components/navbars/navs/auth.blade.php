@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Session;
   $property_data =  Session::get('property_data');
   if ($property_data == null) {
      $propertydata = App\Models\PropertyModel::where('user_id' , $user['id'])->first();
+     if (isset($propertydata)) {
       Session::put('property_data', $propertydata->id);
+    }
   }
 
 ?>
@@ -29,7 +31,7 @@ use Illuminate\Support\Facades\Session;
                   </select>
 
     </li>
-    @if (isset($user['user_name']))
+        @if (isset($user['user_name']) && $user['owner_id'] == 0)                    
        <li class="nav-item nav-profile mx-4 mt-3">
                   <select class="property">
                       <option value="">Select Property</option>
@@ -40,7 +42,6 @@ use Illuminate\Support\Facades\Session;
 
                       @endforeach
                   </select>
-
     </li> 
     @endif
 
@@ -64,8 +65,9 @@ use Illuminate\Support\Facades\Session;
           </a>
           <ul class="dropdown-menu edit-menu">
             <li><a class="dropdown-item" href="#"><i class="fa fa-user text-primary" aria-hidden="true"></i>&nbsp;&nbsp; Edit Profile</a></li>
-            <li><a href="javascript:;" class="dropdown-item log-out-bg">
-            <i class="fa fa-eject text-primary"></i> &nbsp;&nbsp;<livewire:auth.logout/>
+            <li><a href="{{ route('logout') }}" class="dropdown-item log-out-bg">
+            <i class="fa fa-eject text-primary"></i> 
+            &nbsp;&nbsp;<livewire:auth.logout/>
                     </a></li>
             
           </ul>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Auth\ForgotPassword;
 use App\Http\Livewire\Auth\Login;
+use App\Http\Livewire\Auth\Logout;
 use App\Http\Livewire\Auth\ResetPassword;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\ExampleLaravel\UserProfile;
@@ -52,6 +53,8 @@ Route::get('reset-password/{id}', ResetPassword::class)->middleware('signed')->n
 // Route::get('sign-up', Register::class)->middleware('guest')->name('register');
 Route::get('sign-in', Login::class)->middleware('guest')->name('login');
 
+Route::get('logout', [Logout::class , 'destroy'])->middleware('auth')->name('logout');
+
 Route::get('user-profile', UserProfile::class)->middleware('auth')->name('user-profile');
 
 Route::get('user_export', [UserDetail::class, 'export'])->middleware('auth')->name('user_export');
@@ -80,7 +83,10 @@ Route::group(['middleware' => ['web', 'auth:admins' , 'admin']], function () {
 
 });
 
-Route::group(['middleware' => ['auth:web']], function () {
-    Route::get('maintanence-history', MaintanenceHistory::class)->middleware('auth')->name('maintanence-history');
+Route::group(['middleware' => ['mainUser']], function () {
     Route::get('sub-user', FlatManagement::class)->middleware('auth')->name('user');
+});
+
+Route::group(['middleware' => [ 'auth:web']], function () {
+    Route::get('maintanence-history', MaintanenceHistory::class)->middleware('auth')->name('maintanence-history');
 });

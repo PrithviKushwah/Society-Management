@@ -18,22 +18,7 @@
                 @error('create_for') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
-        
-
-
-            <div class="col-sm-3 ">
-              <div class="form-group">
-                <label>MONTH</label>
-                <select wire:model="month" {{ $edit != null && isset($month) && $month != null ? 'disabled' : '' }}   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                  <option value="" @disabled(true)>--- Select An Option---</option>
-                  @foreach ($months as $month )                                 
-                    <option value="{{ $month }}">{{ $month }}</option>
-                  @endforeach
-                </select>
-                @error('month') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
-            </div>
-            
+                    
             <div class="col-sm-3 ">
               <div class="form-group">
                 <label>YEAR</label>
@@ -45,6 +30,19 @@
                   @endforeach
                 </select>
                 @error('year') <span class="text-danger">{{ $message }}</span>@enderror
+              </div>
+            </div>
+
+            <div class="col-sm-3 ">
+              <div class="form-group">
+                <label>MONTH</label>
+                <select wire:model="month" {{ $edit != null && isset($month) && $month != null ? 'disabled' : '' }}   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                  <option value="" @disabled(true)>--- Select An Option---</option>
+                  @foreach ($months as $month )                                 
+                    <option value="{{ $month }}">{{ $month }}</option>
+                  @endforeach
+                </select>
+                @error('month') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
 

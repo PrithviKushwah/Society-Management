@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use App\Models\MaintenanceUser;
+use App\Models\PropertyModel;
 use Illuminate\Support\Facades\Session;
 
 class MaintanenceHistory extends Component
@@ -19,6 +20,9 @@ public function mount(){
 
     public function render()
     {
+        if(auth()->user()->asign_property_id != null){
+            Session::put('property_data', auth()->user()->asign_property_id);
+        }
         $property_data =  Session::get('property_data');
 
         $maintenance_history = MaintenanceUser::where('property_id' , $property_data)

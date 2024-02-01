@@ -1,9 +1,9 @@
 <div>
       <!-- Navbar -->
       <!-- End Navbar -->
-      <div class="container-fluid py-4">
+      {{-- <div class="container-fluid py-4"> --}}
    <!-- New Dashboard Starts -->
-      <div class="main-dashboard mb-5">
+      {{-- <div class="main-dashboard mb-5">
         <div class="main-dashboard-inner">
 
                <div class="shadow-no" id="dashboard-cards">
@@ -308,7 +308,7 @@ College Verification Approved
          
       </div>
   </div>
-  </div>
+  </div> --}}
   @push('js')
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

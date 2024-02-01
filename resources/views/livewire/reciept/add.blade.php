@@ -6,20 +6,62 @@
       @if(isset($error_msg) && $error_msg!=null)
         <h6 class='text-danger'>{{$error_msg}}</h6> 
           @endif
-            <div class="col-sm-3 ">
+
+
+             <?php
+            $maintenance = App\Models\MaintenanceUser::where('month','=',$this->month)
+             ->where('year','=',$this->year)
+             ->where('property_id','=',$this->property_id)
+             ->select('total_amount')
+             ->first();
+             if(!empty( $maintenance)){
+           $this->payable_amount = '₹'.' '.$maintenance->total_amount;
+       
+             }else{
+              $this->payable_amount = '';
+              
+             }
+            ?>
+            <div class="form-group">
+                        @if(!$this->month || !$this->year || !$this->property_id)
+          <span class="text-dark" >
+            {{-- Please select User , Year and Month --}}
+          </span>              
+          @elseif(empty($this->payable_amount ))
+          <span class="text-danger" >Maintanance amount not exist for this User , Year and Month</span>
+          @endif
+            </div>
+      <div class="form-group">
+                <label>PAYABLE AMOUNT:</label>
+                <span disabled wire:model="payable_amount" type="text">{{$this->payable_amount}}</span>
+        </div>
+          
+          <div class="col-sm-3 ">
               <div class="form-group">
                 <label>USER:</label>
                 <select wire:model="property_id"  class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>                
                   @foreach ($this->properties as $property )                                 
-                    <option value="{{ $property->id }}"> {{ $property->user->user_name }} Block {{ $property->block_no}}, Floor No {{ $property->floor_no}},Flat No {{ $property->flat_no}}</option>
+                    <option value="{{ $property->id }}" {{ isset($property->id) && $property->id == $this->property_id ? 'selected' : '' }}> {{ $property->user->user_name }} Block {{ $property->block_no}}, Floor No {{ $property->floor_no}},Flat No {{ $property->flat_no}}</option>
                   @endforeach
                 </select>
                 @error('property_id') <span class="text-danger">{{ $message }}</span>@enderror
               </div>
             </div>
-            
-            
+                                    
+            <div class="col-sm-3 ">
+              <div class="form-group">
+                <label>YEAR</label>
+                <select wire:model="year"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                  <option value="" @disabled(true)>--- Select An Option---</option>                  
+                  @foreach ($years as $year )                                 
+                  <option value="{{ $year }}">{{ $year }}</option>
+                  @endforeach
+                </select>
+                @error('year') <span class="text-danger">{{ $message }}</span>@enderror
+              </div>
+            </div>
+
             <div class="col-sm-3 ">
               <div class="form-group">
                 <label>MONTH</label>
@@ -35,19 +77,6 @@
             
             <div class="col-sm-3 ">
               <div class="form-group">
-                <label>YEAR</label>
-                <select wire:model="year"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                  <option value="" @disabled(true)>--- Select An Option---</option>                  
-                  @foreach ($years as $year )                                 
-                  <option value="{{ $year }}">{{ $year }}</option>
-                  @endforeach
-                </select>
-                @error('year') <span class="text-danger">{{ $message }}</span>@enderror
-              </div>
-            </div>
-            
-            <div class="col-sm-3 ">
-              <div class="form-group">
                 <label>PAYMENT METHOD:</label>
                 <select wire:model="payment_method"   class="w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                   <option value="" @disabled(true)>--- Select An Option---</option>
@@ -58,21 +87,7 @@
               </div>
             </div>
         
-            <?php
-            $maintenance = App\Models\MaintenanceUser::where('month','=',$this->month)
-             ->where('year','=',$this->year)
-             ->where('property_id','=',$this->property_id)
-             ->select('total_amount')
-             ->first();
-             if(!empty( $maintenance)){
-           $this->payable_amount = '₹'.' '.$maintenance->total_amount;
-       
-             }else{
-              $this->payable_amount = '';
-              
-             }
-            ?>
-            <div class="col-sm-3 mt-3 ">
+           <!-- <div class="col-sm-3 mt-3 ">
               <div class="form-group">
                 <label>PAYABLE AMOUNT:</label>
                 <input disabled wire:model="payable_amount" type="text" class="form-control w-100 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter Comment Here">
@@ -84,7 +99,7 @@
                 @error('payable_amount') <span class="text-danger">Please select User , Year and Month</span>@enderror
                 </div>
 
-            </div>
+            </div> -->
             <div class="col-sm-3 mt-3">
               <div class="form-group">
                 <label>PAID AMOUNT:</label>
@@ -103,6 +118,8 @@
 
 
           </div>
+          
+
          
           <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
@@ -120,5 +137,5 @@
         </div>
       </div>
     </form>
-  </div>
+  </div>
 </div>
